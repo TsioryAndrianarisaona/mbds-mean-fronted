@@ -1,0 +1,12 @@
+<nav>
+  <input type="checkbox" id="check">
+  <label for="check" class="checkbtn">
+    <i class="fa fa-bars"></i>
+  </label>
+  <label class="logo">Application de gestion des assignments...</label>
+  <ul>
+    <li><a routerLinkActive = 'active' routerLink="/home">Home</a></li>
+    <li style="cursor: pointer"><a (click)="logout()">Deconnexion</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

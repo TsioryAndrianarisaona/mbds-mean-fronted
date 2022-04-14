@@ -19,38 +19,26 @@ import { MatTableModule } from '@angular/material/table';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonRenduDirective } from './shared/non-rendu.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { MainContentComponent } from './main-content/main-content.component';
+import {HeaderComponent} from "./header/header.component";
 
+import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
+import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes:Routes = [
   {
     path:"",
-    component: AssignmentsComponent
-  },
-  {
-    path:"home",
-    component: AssignmentsComponent
-  },
-  {
-    path:"add",
-    component: AddAssignmentComponent
-  },
-  {
-    path:"assignment/:id",
-    component: AssignmentDetailComponent
-  },
-  {
-    path:"assignment/:id/edit",
-    component: EditAssignmentComponent,
-    canActivate: [AuthGuard]
+    component: LoginComponent
   }
 ]
 @NgModule({
@@ -61,14 +49,18 @@ const routes:Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    LoginComponent,
+    MainContentComponent,
+    HeaderComponent,
+    LayoutComponent
   ],
   imports: [
-    BrowserModule, FormsModule,
+    BrowserModule, FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule, MatTableModule,
-    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
+    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
