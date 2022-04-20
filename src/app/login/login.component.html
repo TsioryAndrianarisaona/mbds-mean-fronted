@@ -2,11 +2,11 @@
 <div class="container" id="container">
   <div class="form-container sign-in-container">
     <form [formGroup] = "loginForm">
-      <h1>Sign in</h1>
-      <input type="email" placeholder="userName" formControlName="userName" />
-      <input type="password" placeholder="Password" formControlName="password"/>
+      <h1>Connexion</h1>
+      <input type="email" placeholder="Login" formControlName="userName" required="true" />
+      <input type="password" placeholder="Mot de passe" formControlName="password" required="true"/>
     <div class="txt-error" [ngClass]="{'isError': checkErrorUser}" *ngIf="errorUtilisateur">{{errorUtilisateur}}</div>
-      <button (click)="login()">Sign In</button>
+      <button (click)="login()">Se Connecter</button>
     </form>
   </div>
   <div class="right-panel">

@@ -25,7 +25,17 @@ export class AuthService {
     return localStorage.getItem("access_token");
   }
 
+  setProfil(profil:string) {
+    localStorage.setItem('profil', profil);
+  }
+
+  isAdmin():any {
+    var profil = localStorage.getItem("profil");
+    return (profil == 'prof') ? true : false;
+  }
+
   isLoggedIn() {
     return this.getToken() != null;
   }
+
 }

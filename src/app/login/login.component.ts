@@ -29,11 +29,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // loginForm = new FormGroup({
-  //   userName: new FormControl(),
-  //   password: new FormControl()
-  // })
-
   loginForm: FormGroup;
   errorUtilisateur: string = "";
   checkErrorUser: boolean = false;
@@ -49,9 +44,10 @@ export class LoginComponent implements OnInit {
       next: res => {
         // @ts-ignore
         this.auth.setToken(res.access_token);
+      //  this.auth.setProfil(res.profil);
       },
       error: () => {
-        this.errorUtilisateur = "Username ou mot de passe incorrecte";
+        this.errorUtilisateur = "Login ou mot de passe incorrect";
         this.checkErrorUser = true;
 
       },

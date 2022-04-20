@@ -15,6 +15,7 @@ export class LogoutService {
 
   public logout() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('profil');
     localStorage.clear();
     this.httpReqClient.get(this.api_url + "/logout");
 
