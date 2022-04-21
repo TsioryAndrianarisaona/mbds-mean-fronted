@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { catchError, filter, forkJoin, map, Observable, of, pairwise, tap } from 'rxjs';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 import { bdInitialAssignments } from './data';
 import {environment} from "../../environments/environment";
+import {HttpRequestService} from "./../services/http-request.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ import {environment} from "../../environments/environment";
 
 export class AssignmentsService {
 
-  url: string = environment.api_url + "/assignments";
+  url: string = environment.api_url + "assignments";
   assignments:Assignment[] = [];
 
-  constructor(private loggingService:LoggingService, private http:HttpClient) {
+  constructor(private loggingService:LoggingService, private http: HttpRequestService) {
     this.loggingService.setNiveauTrace(2);
 
   }
@@ -26,12 +27,15 @@ export class AssignmentsService {
     // certain temps à répondre. On va donc préparer le terrain en renvoyant
     // non pas directement les données, mais en renvoyant un objet "Observable"
     //return of(this.assignments);
-    return this.http.get<Assignment[]>(this.url + "?page=" + page + "&limit=" + limit);
+    //return this.http.get<Assignment[]>(this.url + "?page=" + page + "&limit=" + limit);
+    return this.http.get<Assignment[]>(this.url)
   }
 
-  getAssignment(id:number):Observable<Assignment|undefined> {
+  getAssignment(id:string):Observable<Assignment|undefined> {
     //let a = this.assignments.find(a => a.id === id);
     //return of(a);
+    var urlapi = `${this.url}/${id}`;
+    console.log('URL', urlapi)
     return this.http.get<Assignment>(`${this.url}/${id}`)
     .pipe(
       map(a => {

@@ -76,7 +76,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       this.assignmentsService.getAssignments(this.page, this.limit)
       .subscribe(reponse => {
         console.log("données arrivées");
-        this.assignments = reponse.docs;
+        this.assignments = reponse.assignements;
         this.page = reponse.page;
         this.limit=reponse.limit;
         this.totalPages=reponse.totalPages;

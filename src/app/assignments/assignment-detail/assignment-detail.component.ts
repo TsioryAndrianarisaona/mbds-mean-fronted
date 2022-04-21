@@ -22,11 +22,12 @@ export class AssignmentDetailComponent implements OnInit {
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
     // le + permet de forcer en number (au lieu de string)
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     this.getAssignment(id);
+    console.log(this.assignmentTransmis)
   }
 
-  getAssignment(id: number) {
+  getAssignment(id: string) {
     // on demande au service de gestion des assignment,
     // l'assignment qui a cet id !
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {

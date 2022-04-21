@@ -33,7 +33,7 @@ export class EditAssignmentComponent implements OnInit {
   getAssignment() {
     // on récupère l'id dans le snapshot passé par le routeur
     // le "+" force l'id de type string en "number"
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
 
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       if (!assignment) return;

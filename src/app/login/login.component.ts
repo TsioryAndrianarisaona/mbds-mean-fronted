@@ -37,14 +37,24 @@ export class LoginComponent implements OnInit {
     this.errorUtilisateur = "";
     this.checkErrorUser = false;
     const userLog = {
-      'username': this.loginForm.value.userName,
+      'email': this.loginForm.value.userName,
       'password': this.loginForm.value.password
     }
+    console.log(userLog);
+
     this.auth.login(userLog).subscribe({
       next: res => {
         // @ts-ignore
-        this.auth.setToken(res.access_token);
-      //  this.auth.setProfil(res.profil);
+        this.auth.setToken(res.token);
+        // @ts-ignore
+        this.auth.setProfil(res.user.isAdmin);
+        // @ts-ignore
+        this.auth.setUtilisateur(JSON.stringify(res.user));
+
+        // Stocker les matières associés à l'utilisateur
+        // @ts-ignore
+
+        localStorage.setItem('matieres', JSON.stringify(res.matiere));
       },
       error: () => {
         this.errorUtilisateur = "Login ou mot de passe incorrect";
@@ -53,7 +63,8 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.router.navigate(['./home']);
+        console.log(localStorage.getItem('utilisateur'))
       }
-    })
+    }) 
   }
 }

@@ -10,7 +10,24 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-    <button mat-stroked-button color="primary" [disabled]="((!this.nomAssignment) || (!this.dateDeRendu))">
+  <mat-form-field appearance="fill">
+    <mat-label>Matière</mat-label>
+    <select matNativeControl required [(ngModel)]="matiereChoisi" [ngModelOptions]="{standalone: true}">
+      <option *ngFor="let matiere of matieres" [value] = "matiere.id" > {{matiere.nom}} </option>
+    </select>
+    <mat-hint>Choisir la matière</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Auteur" [(ngModel)]="auteur" name="auteur">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" min="0" placeholder="Note" [(ngModel)]="note" name="note">
+  </mat-form-field>
+  
+    <button mat-stroked-button color="primary" [disabled]="((!this.nomAssignment) || (!this.dateDeRendu) || (!this.matiereChoisi) || (!this.auteur) ) ">
       Ajouter un devoir
     </button>
 </form>
+

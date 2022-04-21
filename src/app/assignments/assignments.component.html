@@ -56,14 +56,14 @@
 <cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
   <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
     <nav>
-      <a href="/assignment/{{assignment.id}}">
+      <a href="/assignment/{{assignment._id}}">
         <h3 mat-subheader>{{assignment.dateDeRendu | date:"dd/MM/yy"}}</h3>
         <mat-list-item>
           <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
             Devoir intitulé {{assignment.nom}}.
           </p>
           <ng-template #nonsoumis>
-            <p appNonRendu>Le devoir {{assignment.nom}} n'a pas encore été rendu.</p>
+            <p appNonRendu>Le devoir {{assignment.nom}} de {{assignment.auteur}} n'a pas encore été rendu.</p>
           </ng-template>
           <mat-divider></mat-divider>
         </mat-list-item>

@@ -14,7 +14,6 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        canActivate: [AuthGuard],
         component: AssignmentsComponent
       },
       {

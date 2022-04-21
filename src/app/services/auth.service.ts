@@ -12,26 +12,31 @@ export class AuthService {
   ) { }
 
   public login(login: any) {
-    const data = this.http.post(this.api_url + "/api/login", login);
+    const data = this.http.post(this.api_url + "login", login);
     return data;
   }
 
 
   setToken(token:string) {
-    localStorage.setItem('access_token', token);
+    localStorage.setItem('token', token);
   }
 
   getToken():any {
-    return localStorage.getItem("access_token");
+    return localStorage.getItem("token");
   }
 
-  setProfil(profil:string) {
-    localStorage.setItem('profil', profil);
+  // Stocker le profil 
+  setProfil(profil:boolean) {
+    localStorage.setItem('profil', JSON.stringify(profil));
+  }
+  
+  // Stocker les infos sur l'utilisateur
+  setUtilisateur(user:string) {
+    localStorage.setItem('utilisateur', user);
   }
 
   isAdmin():any {
-    var profil = localStorage.getItem("profil");
-    return (profil == 'prof') ? true : false;
+    return JSON.parse(localStorage.getItem("profil") || '{}');
   }
 
   isLoggedIn() {
