@@ -3,6 +3,8 @@ import { AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/cor
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { response } from 'express';
 
 @Component({
   selector: 'app-assignments',
@@ -11,6 +13,8 @@ import { Assignment } from './assignment.model';
 })
 export class AssignmentsComponent implements OnInit, AfterViewInit {
   assignments:Assignment[] = [];
+  assignmentsRendus:Assignment[] = [];
+  assignmentsNonRendus:Assignment[] = [];
   displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu'];
 
   // pagination
@@ -71,12 +75,33 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.getAssignments();
   }
 
+
+  // Drag and drop feature
+  //todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+
+ // done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+
   getAssignments() {
       // demander les données au service de gestion des assignments...
       this.assignmentsService.getAssignments(this.page, this.limit)
       .subscribe(reponse => {
         console.log("données arrivées");
-        this.assignments = reponse.assignements;
+        this.assignments = reponse;
+        this.assignmentsRendus = reponse.slice(0,5);
+        this.assignmentsNonRendus = reponse.slice(12,18);
         this.page = reponse.page;
         this.limit=reponse.limit;
         this.totalPages=reponse.totalPages;

@@ -72,4 +72,31 @@
   </mat-list>
 </cdk-virtual-scroll-viewport>
 
+
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h2>Non rendu</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="assignmentsRendus"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let assignment of assignmentsRendus" cdkDrag>{{assignment.nom}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Rendu</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="assignmentsNonRendus"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let assignment of assignmentsNonRendus" cdkDrag>{{assignment.nom}}</div>
+    </div>
+  </div>
+</div>
+
 </main>
