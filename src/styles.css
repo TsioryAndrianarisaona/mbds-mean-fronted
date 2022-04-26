@@ -17,6 +17,8 @@
   --geraldine: #f98f8e;
   --cornflower-blue: #727ef7;
   --rajah: #fdd3d6;
+  --red: #cd0d19e1;
+  --delivered: #0c5412d7;
 }
 
 * {
@@ -953,6 +955,18 @@ button {
 
 .status--published {
   color: var(--cornflower-blue);
+}
+
+.status--deleted {
+  color: var(--red);
+}
+
+.status--noted {
+  color: var(--red);
+}
+
+.status--delivered {
+  color: var(--delivered);
 }
 
 .status--in-work {

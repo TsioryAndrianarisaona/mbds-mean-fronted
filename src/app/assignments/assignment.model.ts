@@ -8,4 +8,5 @@ export class Assignment {
   auteur!:string;
   note!:number;
   matiere!:string;
+  etat!:number;
 }

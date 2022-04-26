@@ -10,6 +10,7 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { Router } from '@angular/router';
 import { LogoutService } from '../services/logout.service';
+import { response } from 'express';
 
 
 export interface DialogData {
@@ -31,6 +32,8 @@ export class AssignmentsComponent implements OnInit {
   utilisateur: any;
   matieres!: any[];
   matiereSearch: string = "";
+
+  isAdmin : any = false;
 
   // pagination
   page = {
@@ -85,8 +88,10 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignmentsNonRendus();
     this.getAssignmentsRendus();
     this.getUtilisateur();
-    this.getMatieres();
-    console.log(this.hasNextPage)
+    this.isAdmin = JSON.parse(localStorage.getItem('profil') || 'false');
+    if(this.isAdmin){
+      this.getMatieres();
+    }
   }
 
 
@@ -105,6 +110,7 @@ export class AssignmentsComponent implements OnInit {
       // demander les données au service de gestion des assignments...
       this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], "")
       .subscribe(reponse => {
+        this.assignments = reponse.data.assignments;
         this.page.all = reponse.data.page;
         this.limit=reponse.data.limit;
         this.totalData.all = reponse.data.total
@@ -115,7 +121,7 @@ export class AssignmentsComponent implements OnInit {
         this.nextPage.all = reponse.data.page + 1;
       });
 
-      console.log("Après l'appel au service");
+      console.log(this.assignments);
   }
 
   getAssignmentsRendus(){
@@ -174,6 +180,16 @@ export class AssignmentsComponent implements OnInit {
   pageSuivanteNonRendus() {
     this.page.nonRendus++;
     this.getAssignmentsNonRendus();
+  }
+
+  pagePrecedenteAll() {
+    this.page.all--;
+    this.getAssignments();
+  }
+
+  pageSuivanteAll() {
+    this.page.all++;
+    this.getAssignments();
   }
 
 
@@ -247,4 +263,37 @@ export class AssignmentsComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  getEtat(etat:number){
+    var etatFinal = "non rendu";
+    switch(etat){
+      case 20:
+        etatFinal = "noté"
+        break
+      case 10: 
+        etatFinal = "délivré"
+        break
+      case -20:
+        etatFinal = "supprimé"
+        break
+    }
+
+    return etatFinal;
+  }
+
+  getEtatClass(etat:number){
+    var etatFinal = "status status--in-work";
+    switch(etat){
+      case 20:
+        etatFinal = "status status--noted"
+        break
+      case 10: 
+        etatFinal = "status status--delivered"
+        break
+      case -20:
+        etatFinal = "status status--deleted"
+        break
+    }
+
+    return etatFinal;
+  }
 }

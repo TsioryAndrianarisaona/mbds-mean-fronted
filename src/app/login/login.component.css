@@ -6,7 +6,7 @@
 
 a {
   text-decoration: none;
-  color: #5791bd;
+  color: #9174d8;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
   min-height      : 100vh;
   width           : 100%;
   font-size       : 14px;
-  background-color: #5791bd;
+  background-color: #9174d8;
   color           : #303030;
   display         : flex;
   justify-content : center;
@@ -60,7 +60,7 @@ img {
   font-weight   : bold;
   letter-spacing: 1px;
   margin-bottom : 40px;
-  color         : #2b596b;
+  color         : #9174d8;
 }
 
 .login-form {
@@ -105,7 +105,7 @@ img {
 }
 
 .form-item input:focus~span {
-  background-color: #2b596b;
+  background-color: #9174d8;
 }
 
 .actions {
@@ -121,7 +121,7 @@ button[type="submit"] {
   border          : none;
   outline         : none;
   border-radius   : 25px;
-  background-color: #2b596b;
+  background-color: #9174d8;
   color           : #fff;
   text-transform  : uppercase;
   letter-spacing  : 1.2px;
@@ -134,5 +134,5 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #2b596bd0;
+  background-color: #9174d8d0;
 }

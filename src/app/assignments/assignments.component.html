@@ -94,8 +94,8 @@
         </div>
       </header>
 
-      <div cdkDropListGroup class= "grid-container">
-        <section class="section">
+      <div cdkDropListGroup class= "grid-container" *ngIf="isAdmin">
+        <section class="section" *ngIf="isAdmin">
           <header class="section__header">
             <h2 class="section__title">Non Rendus</h2>
             <div class="section__control">
@@ -171,7 +171,7 @@
 
           </ul>
         </section>
-        <section class="section">
+        <section class="section" *ngIf="isAdmin">
           <header class="section__header">
             <h2 class="section__title">Rendus</h2>
             <div class="section__control">
@@ -253,6 +253,83 @@
         </section>
 
       </div>
+
+      <section class="section">
+        <header class="section__header">
+          <h2 class="section__title">Liste des Assignments</h2>
+          <div class="section__control">
+            <button
+              class="section__button focus--box-shadow"
+              type="button"
+              aria-label="Filter projects"
+              (click)="pagePrecedenteAll()" [disabled]="!hasPrevPage.all"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>
+            </button>
+            <button
+              class="section__button section__button--painted focus--box-shadow"
+              type="button"
+              aria-label="Add New project"
+              (click)="pageSuivanteAll()" [disabled]="!hasNextPage.all"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+              <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+            </button>
+          </div>
+        </header>
+        <ul class="project">
+          <li class="project__item" *ngFor="let assignment of assignments">
+            <a (click)="voirDetails(assignment)" class="project__link focus--box-shadow">
+              <div class="project__wrapper">
+                <div class="project__element project__icon">
+                  <div
+                    class="icon icon--viking"
+                    aria-label="Icon of the 'Showcase Design' project"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      role="presentation"
+                    >
+                      <path
+                        d="M7,10H9A1,1,0,0,0,9,8H7a1,1,0,0,0,0,2ZM21,4H13V3a1,1,0,0,0-2,0V4H3A1,1,0,0,0,2,5V15a3,3,0,0,0,3,3H9.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L11,19.41V21a1,1,0,0,0,2,0V19.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L14.41,18H19a3,3,0,0,0,3-3V5A1,1,0,0,0,21,4ZM20,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V6H20ZM7,14h6a1,1,0,0,0,0-2H7a1,1,0,0,0,0,2Z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class="project__element project__inform">
+                  <span class="status status--published"
+                    >{{ assignment.matiere}}</span
+                  >
+                </div>
+                
+                <div class="project__element project__inform">
+                  <span class="project__inform-name"
+                    >{{ assignment.nom }}</span
+                  >
+                </div>
+
+                <div class="project__element project__date">
+                  <time class="date" datetime="2020-05-05T10:00:00"
+                    >dû le {{ assignment.dateDeRendu }}</time
+                  >
+                </div>
+                <div class="project__element project__status">
+                  <span [ngClass]="getEtatClass(assignment.etat)"> {{ getEtat(assignment.etat) }}</span>
+                </div>
+
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+
     </main>
     <aside class="aside">
       <section class="section">
@@ -270,7 +347,7 @@
           <h1 class="profile-main__name">{{utilisateur.name}}</h1>
         </div>
         <ul class="statistics">
-          <li class="statistics__entry">
+          <li class="statistics__entry" *ngIf="isAdmin" >
             <a class="statistics__entry-description" href="#">Matieres</a
             ><span class="statistics__entry-quantity">{{ matieres.length}}</span>
           </li>
@@ -279,7 +356,7 @@
             ><span class="statistics__entry-quantity">{{totalData.all}}</span>
           </li>
         </ul>
-        <div class="banner">
+        <div class="banner" *ngIf="isAdmin">
           <button (click) = "addAssignment()" class="banner__button" type="button">
            Ajouter Assignment
           </button>

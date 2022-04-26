@@ -15,7 +15,7 @@
 
                       <div class="input-field">
                           <label>Date Limite</label>
-                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateDeRendu | date : 'yyyy-MM-dd' " [readonly]="!isEditable" required>
+                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateDeRendu | date : 'yyyy-MM-dd' " [readonly]="true" required>
                       </div>
 
                       <div class="input-field">
@@ -27,7 +27,7 @@
                           <label>Devoir de : </label>
                           <input type="text" placeholder="Eleve" [value] = "assignmentTransmis.data.assignments[0].auteur" [readonly]="true" required>
                       </div>
-                      
+
                       <div class="input-field">
                           <label>Statut</label>
                           <input type="text" placeholder="Statut" [value] = "assignmentTransmis.data.assignments[0].etat" [readonly]="true" required>
@@ -47,7 +47,7 @@
 
                       <div class="input-field">
                           <label>Remarques</label>
-                          <input [(ngModel)] = "remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Rajouter des remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
+                          <input [(ngModel)] = "remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
                       </div>
 
                       <div *ngIf = "assignmentTransmis.data.assignments[0].rendu" class="input-field">

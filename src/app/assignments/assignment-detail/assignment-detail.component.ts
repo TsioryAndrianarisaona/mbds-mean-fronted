@@ -48,7 +48,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAssignment(this.data.assignment._id);
-    this.isAdmin = localStorage.getItem('profil') ;
+    this.isAdmin = JSON.parse(localStorage.getItem('profil') || 'false') ;
   }
 
   getAssignment(id: string) {
