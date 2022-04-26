@@ -1,21 +1,29 @@
-<div class="login-container">
-<div class="container" id="container">
-  <div class="form-container sign-in-container">
-    <form [formGroup] = "loginForm">
-      <h1>Connexion</h1>
-      <input type="email" placeholder="Login" formControlName="userName" required="true" />
-      <input type="password" placeholder="Mot de passe" formControlName="password" required=""/>
-    <div class="txt-error" [ngClass]="{'isError': checkErrorUser}" *ngIf="errorUtilisateur">{{errorUtilisateur}}</div>
-      <button (click)="login()">Se Connecter</button>
-    </form>
-  </div>
-  <div class="right-panel">
-    <div class="right-panel-content">
-      <div class="overlay-panel overlay-right">
-        <img src="assets/images/logo.jpg" width="100%" height="100%">
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
+  <div class="login-container">
+
+    <div class="welcome-img">
+        <img src="./../../assets/images/logo.jpg" alt="welcome image">
+    </div>
+
+    <div class="form-container">
+        <p class="title">Connexion</p>
+
+        <form [formGroup]="loginForm" class="login-form">
+            <div class="form-item email">
+                <input type="email" placeholder="Login" formControlName="userName" required="true">
+                <span class="item-indicator"></span>
+            </div>
+            <div class="form-item password">
+                <input type="password" placeholder="Mot de passe" formControlName="password" required="true">
+                <span class="item-indicator"></span>
+            </div>
+
+            <div class="txt-error" [ngClass]="{'isError': checkErrorUser}" *ngIf="errorUtilisateur">{{errorUtilisateur}}</div>
+
+            <div class="actions">
+                <button (click)="login()" type = "submit">Se Connecter</button>
+            </div>
+
+        </form>
+    </div>
+</div>

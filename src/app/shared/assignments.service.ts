@@ -21,32 +21,26 @@ export class AssignmentsService {
 
   }
 
-  getAssignments(page:number, limit:number):Observable<any> {
+  getAssignments(page:number, limit:number, etat: any[] = [], matieres: any):Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
     // on va envoyer une requête à un Web Service sur le cloud, qui mettra un
     // certain temps à répondre. On va donc préparer le terrain en renvoyant
     // non pas directement les données, mais en renvoyant un objet "Observable"
     //return of(this.assignments);
     //return this.http.get<Assignment[]>(this.url + "?page=" + page + "&limit=" + limit);
-    return this.http.get<Assignment[]>(this.url)
+    const body = {
+      page : page,
+      etat : etat,
+      matiere : JSON.parse(JSON.stringify(matieres)),
+    }
+
+    console.log(body)
+
+    return this.http.post<Assignment[]>("http://localhost:8010/api/assignments/etat", body)
   }
 
   getAssignment(id:string):Observable<Assignment|undefined> {
-    //let a = this.assignments.find(a => a.id === id);
-    //return of(a);
-    var urlapi = `${this.url}/${id}`;
-    console.log('URL', urlapi)
-    return this.http.get<Assignment>(`${this.url}/${id}`)
-    .pipe(
-      map(a => {
-        a.nom = a.nom + " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
-        return a;
-      }),
-      tap(a => {
-        console.log("Dans le tap, pour debug, assignment recu = " + a.nom)
-      }),
-      catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
-    );
+    return this.http.get<Assignment>(`${this.url}/${id}`);
   }
 
   private handleError<T>(operation: any, result?: T) {
@@ -58,20 +52,15 @@ export class AssignmentsService {
     }
   }
 
-  addAssignment(assignment:Assignment):Observable<any> {
-   // this.assignments.push(assignment);
-
-    this.loggingService.log(assignment.nom, "ajouté");
-
-    return this.http.post<Assignment>(this.url, assignment);
+  addAssignment(body:any):Observable<any> {
+    return this.http.post<Assignment>(this.url, body);
 
     //return of("Assignment ajouté");
   }
 
-  updateAssignment(assignment:Assignment):Observable<any> {
-    this.loggingService.log(assignment.nom, "modifié");
-
-    return this.http.put<Assignment>(this.url, assignment);
+  updateAssignment(body:any):Observable<any> {
+    
+    return this.http.put<Assignment>(this.url, body);
   }
 
   deleteAssignment(assignment:Assignment):Observable<any> {

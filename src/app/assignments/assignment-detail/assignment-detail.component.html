@@ -1,9 +1,79 @@
-<mat-card *ngIf="assignmentTransmis">
-  <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-  <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
-  <div id="bottom">
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Rendu</mat-checkbox>
-    <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isLoggedIn()">EDIT</button>
-    <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
+<body>
+  <div class="container">
+      <header>{{ data.assignment.matiere }}</header>
+
+      <form action="#">
+          <div class="form first">
+              <div class="details personal">
+                  <span class="title">Details</span>
+
+                  <div class="fields">
+                      <div class="input-field">
+                          <label>Devoir </label>
+                          <input [(ngModel)] = "nomDeDevoir" [ngModelOptions]="{standalone: true}" type="text" placeholder = "Nom du devoir" [value] = "assignmentTransmis.data.assignments[0].nom" [readonly]="!isEditable" required  >
+                      </div>
+
+                      <div class="input-field">
+                          <label>Date Limite</label>
+                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateDeRendu | date : 'yyyy-MM-dd' " [readonly]="!isEditable" required>
+                      </div>
+
+                      <div class="input-field">
+                          <label>Professeur</label>
+                          <input type="text" placeholder="Professeur" [value] = "assignmentTransmis.data.matiere[0][0].prof" [readonly]="true" required>
+                      </div>
+
+                      <div class="input-field">
+                          <label>Devoir de : </label>
+                          <input type="text" placeholder="Eleve" [value] = "assignmentTransmis.data.assignments[0].auteur" [readonly]="true" required>
+                      </div>
+                      
+                      <div class="input-field">
+                          <label>Statut</label>
+                          <input type="text" placeholder="Statut" [value] = "assignmentTransmis.data.assignments[0].etat" [readonly]="true" required>
+                      </div>
+
+                  </div>
+              </div>
+
+              <div class="notation">
+                  <span class="title">Notation</span>
+
+                  <div class="fields">
+                      <div class="input-field">
+                          <label>Note</label>
+                          <input [(ngModel)] = "note" [ngModelOptions]="{standalone: true}" type="number" placeholder="Note" [value] = "assignmentTransmis.data.assignments[0].note" [readonly]="!isEditable" required>
+                      </div>
+
+                      <div class="input-field">
+                          <label>Remarques</label>
+                          <input [(ngModel)] = "remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Rajouter des remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
+                      </div>
+
+                      <div *ngIf = "assignmentTransmis.data.assignments[0].rendu" class="input-field">
+                          <label>Rendu le </label>
+                          <p>{{assignmentTransmis.data.assignments[0].dateDeRendu |  date :'medium' }} </p>
+                      </div>
+                  </div>
+
+                  <button class="nextBtn" *ngIf="isAdmin && !isEditable" (click)="enableEdit()">
+                      <span class="btnText">Modifier</span>
+                      <i class="uil uil-navigator"></i>
+                  </button>
+
+                  <button class="nextBtn" *ngIf="isAdmin && isEditable" (click)="edit()">
+                    <span class="btnText">Modifier</span>
+                    <i class="uil uil-navigator"></i>
+                  </button>
+
+                  <button class="nextBtn" *ngIf="isAdmin" (click)="delete()">
+                    <span class="btnText">Supprimer</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+              </div> 
+          </div>
+
+      </form>
   </div>
-</mat-card>
+
+</body>

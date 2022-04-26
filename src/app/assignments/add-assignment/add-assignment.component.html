@@ -1,33 +1,47 @@
-<form ngForm #assignmentForm (submit)="onSubmit(); assignmentForm.reset()" class="form">
-  <mat-form-field>
-    <input matInput placeholder="Nom de l'assignment" [(ngModel)]="nomAssignment" name="nom" required>
-  </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<body>
+    <div class="container">
+        <header>Créer Assignment</header>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Matière</mat-label>
-    <select matNativeControl required [(ngModel)]="matiereChoisi" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let matiere of matieres" [value] = "matiere.id" > {{matiere.nom}} </option>
-    </select>
-    <mat-hint>Choisir la matière</mat-hint>
-  </mat-form-field>
+        <form action="#">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Details</span>
 
-  <mat-form-field>
-    <input matInput placeholder="Auteur" [(ngModel)]="auteur" name="auteur">
-  </mat-form-field>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nom</label>
+                            <input [(ngModel)] = "nomAssignment" [ngModelOptions]="{standalone: true}" type="text" placeholder="Nom de devoir" required>
+                        </div>
 
-  <mat-form-field>
-    <input matInput type="number" min="0" placeholder="Note" [(ngModel)]="note" name="note">
-  </mat-form-field>
-  
-    <button mat-stroked-button color="primary" [disabled]="((!this.nomAssignment) || (!this.dateDeRendu) || (!this.matiereChoisi) || (!this.auteur) ) ">
-      Ajouter un devoir
-    </button>
-</form>
+                        <div class="input-field">
+                            <label>Date Limite</label>
+                            <input [(ngModel)] = "dateLimite" [ngModelOptions]="{standalone: true}" type="date" placeholder="Ajouter la date limite" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Auteur</label>
+                            <input [(ngModel)] = "auteur" [ngModelOptions]="{standalone: true}" type="text" placeholder="Renseigner l'élève" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Matiere</label>
+                            <select required [(ngModel)]="matiereChoisi" [ngModelOptions]="{standalone: true}">
+                                <option disabled selected>Choisissez la matière</option>
+                                <option *ngFor="let matiere of matieres" [value] = "matiere.name">{{matiere.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="nextBtn" (click)="onSubmit()" [disabled]="((!nomAssignment) || (!dateLimite) || (!matiereChoisi) || (!auteur))">
+                        <span class="btnText">Ajouter</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div> 
+            </div>
+        </form>
+    </div>
+</body>
 

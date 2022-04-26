@@ -3,6 +3,7 @@ export class Assignment {
   id!:number;
   nom!:string;
   dateDeRendu!:Date;
+  dateLimite!:Date;
   rendu!:boolean;
   auteur!:string;
   note!:number;

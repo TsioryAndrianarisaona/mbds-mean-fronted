@@ -1,0 +1,41 @@
+<body>
+    <div class="container">
+      <div class="content">
+        <div class="left-side">
+          <div class="details">
+            <div class="status status--in-work"> {{data.assignment.matiere}} </div>
+          </div>
+          <div class="details">
+            <div class="status status--published">{{data.assignment.nom}}</div>
+          </div>
+          <div class="details">
+            <div class="topic">de <span class="status status--published">{{data.assignment.auteur}}</span></div>
+            <div class="text-one">dû le {{data.assignment.dateDeRendu}}</div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="topic-text">Notation</div>
+          <br>
+          <p>Veuillez attribuer les notes et rajouter des remarques</p>
+        <form action="#">
+          <div class="input-box">
+            <input [(ngModel)]="note" [ngModelOptions]="{standalone: true}" type="number" min="0" max="20" placeholder="Note">
+          </div>
+          <div class="input-box">
+            <textarea [(ngModel)]="remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Remarques"></textarea>
+          </div>
+          <section>
+            <div class="button">
+              <input type="button" (click)="onNoClick()" value="Annuler" >
+            </div>
+          </section>
+          <section>
+            <div class="button">
+              <input type="button" (click) = "confirm()" value="Confirmer"[disabled]="((!this.note) || (!this.remarques) ) " >
+            </div>
+          </section>
+        </form>
+      </div>
+      </div>
+    </div>
+  </body>

@@ -1,102 +1,290 @@
-<main class="container">
-  <a routerLink="/add" class="ajouterBtn">
-    <button mat-flat-button color="accent">
-      Ajouter Assignment
-    </button>
-  </a>
-
-  <h2>Liste des devoirs :</h2>
-
-  <div class="barrePagination">
-    <p>Page courante : {{page}}, assignments visibles : {{pagingCounter}} - {{pagingCounter + limit-1}}, nbPages total {{totalPages}}</p>
-    <p>Nb assignments par page : <input type="range" min=5 max=100 [(ngModel)]="limit" (change)="getAssignments()">
-      {{limit}}
-    </p>
-
-    <button mat-flat-button color="primary" [disabled]="!hasPrevPage" (click)="premierePage()">Première page</button>
-    &nbsp;
-
-    <button mat-flat-button color="primary"
-            (click)="pagePrecedente()"
-            [disabled]="!hasPrevPage"
-    >Page précédente</button>
-    &nbsp;
-    <button mat-flat-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page suivante</button>
-    &nbsp;
-    <button mat-flat-button color="primary" (click)="dernierePage()" [disabled]="!hasNextPage">Dernière page</button>
-  </div>
-
-  <!--
-  <table mat-table [dataSource]="assignments" class="mat-elevation-z8">
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef> Nom </th>
-      <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="dateDeRendu">
-      <th mat-header-cell *matHeaderCellDef> Date de Rendu </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="rendu">
-      <th mat-header-cell *matHeaderCellDef> Rendu </th>
-      <td mat-cell *matCellDef="let element"> {{element.rendu}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
--->
-<cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
-  <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
-    <nav>
-      <a href="/assignment/{{assignment._id}}">
-        <h3 mat-subheader>{{assignment.dateDeRendu | date:"dd/MM/yy"}}</h3>
-        <mat-list-item>
-          <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
-            Devoir intitulé {{assignment.nom}}.
-          </p>
-          <ng-template #nonsoumis>
-            <p appNonRendu>Le devoir {{assignment.nom}} de {{assignment.auteur}} n'a pas encore été rendu.</p>
-          </ng-template>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </a>
+<body>
+  <div class="wrapper">
+    <nav class="nav">
+      <ul class="nav__list" role="menubar">
+        <li class="nav__item nav__item--isActive">
+          <a
+            class="nav__link focus--box-shadow"
+            role="menuitem"
+            aria-label="Home"
+          >
+            <svg
+              class="nav__icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              role="presentation"
+            >
+              <path
+                fill="#6563ff"
+                d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            class="nav__link focus--box-shadow"
+            role="menuitem"
+            aria-label="Informational messages"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            width="24" height="24" 
+            fill="currentColor" 
+            class="bi bi-person-workspace" 
+            viewBox="0 0 16 16">
+              <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+              <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+            </svg>
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            class="nav__link focus--box-shadow"
+            role="menuitem"
+            aria-label="Collections"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" 
+            width="24" height="24" 
+            fill="currentColor" 
+            class="bi bi-book-fill" viewBox="0 0 16 16">
+            <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+          </svg>
+          </a>
+        </li>
+        <li class="nav__item">
+          <a (click) = "logout()"
+            class="nav__link focus--box-shadow"
+            role="menuitem"
+            aria-label="Analytics"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+            fill="#6563ff" 
+            class="bi bi-box-arrow-right" 
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+          </svg>
+          </a>
+        </li>
+      </ul>
     </nav>
-  </mat-list>
-</cdk-virtual-scroll-viewport>
+    <main class="main">
+      <header class="header">
+        <div class="header__wrapper">
+          <form action="" class="search">
+            <button class="search__button focus--box-shadow" type="submit">
+              <svg
+                class="search__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                (click) = "search()"
+              >
+                <path
+                  d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"
+                />
+              </svg>
+            </button>
+            <input 
+              class="search__input focus--box-shadow"
+              type="text"
+              placeholder="Matieres"
+              [(ngModel)]="matiereSearch" [ngModelOptions]="{standalone: true}"
+            />
+          </form>
+        </div>
+      </header>
 
+      <div cdkDropListGroup class= "grid-container">
+        <section class="section">
+          <header class="section__header">
+            <h2 class="section__title">Non Rendus</h2>
+            <div class="section__control">
+              <button
+                class="section__button focus--box-shadow"
+                type="button"
+                aria-label="Page Precedente"
+                (click)="pagePrecedenteNonRendus()" [disabled]="!hasPrevPage.nonRendus"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              </svg>
+              </button>
+              <button
+                class="section__button section__button--painted focus--box-shadow"
+                type="button"
+                aria-label="Page Suivante"
+                (click)="pageSuivanteNonRendus()" [disabled]="!hasNextPage.nonRendus"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+              </button>
+            </div>
+          </header>
+          <ul class="project" cdkDropList
+          [cdkDropListData]="assignmentsNonRendus"
+          (cdkDropListDropped)="rendre($event)">
+            <li class="project__item" *ngFor="let assignment of assignmentsNonRendus" cdkDrag>
+              <a class="project__link focus--box-shadow">
+                <div class="project__wrapper">
+                  <div class="project__element project__icon">
+                    <div
+                      class="icon icon--viking"
+                      aria-label="Matiere"
+                    >
+                    <img
+                    src="./../../assets/images/img1.png"
+                    alt="Matiere Photo"
+                  />
+                    </div>
+                  </div>
+                  <div class="project__element project__inform">
+                    <span class="project__inform-name"
+                      > {{assignment.nom}} de </span><span class="status status--published">{{assignment.auteur}}</span>
+                    
+                  </div>
+                  <div class="project__element project__inform">
+                    <span class="status status--in-work">{{assignment.matiere}} </span>
+                    
+                  </div>
+                  <div class="project__element project__date">
+                    <time class="date"
+                      >{{assignment.dateDeRendu}}</time
+                    >
+                  </div>
+                  <div class="project__element project__setting">
+                    <button
+                      class="setting"
+                      type="button"
+                      (click)="voirDetails(assignment)"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                    </button>
+                  </div>
+                </div>
+              </a>
+            </li>
 
-<div cdkDropListGroup>
-  <div class="example-container">
-    <h2>Non rendu</h2>
+          </ul>
+        </section>
+        <section class="section">
+          <header class="section__header">
+            <h2 class="section__title">Rendus</h2>
+            <div class="section__control">
+              <button
+                class="section__button focus--box-shadow"
+                aria-label="Page Précédente"
+                (click)="pagePrecedenteRendus()"
+                [disabled]="!hasPrevPage.rendus"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              </svg>
+              </button>
+              <button
+                class="section__button section__button--painted focus--box-shadow"
+                aria-label="Page Suivante"
+                (click)="pageSuivanteRendus()" [disabled]="!hasNextPage.rendus"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+              </button>
+            </div>
+          </header>
+          <ul class="project" cdkDropList
+          [cdkDropListData]="assignmentsRendus"
+          (cdkDropListDropped)="rendre($event)">
+            <li class="project__item" *ngFor="let assignment of assignmentsRendus" >
+              <a class="project__link focus--box-shadow">
+                <div class="project__wrapper">
+                  <div class="project__element project__icon">
+                    <div
+                      class="icon icon--viking"
+                      aria-label="Matiere"
+                    >
+                    <img
+                    src="./../../assets/images/img1.png"
+                    alt="Matiere Photo"
+                  />
+                    </div>
+                  </div>
+                  <div class="project__element project__inform">
+                    <span class="project__inform-name"
+                      > {{assignment.nom}} de </span><span class="status status--published">{{assignment.auteur}}</span>
+                    
+                  </div>
+                  <div class="project__element project__inform">
+                    <span class="status status--in-work">{{assignment.matiere}}</span>
+                    
+                  </div>
+                  <div class="project__element project__date">
+                    <time class="date"
+                      >{{assignment.dateDeRendu}}</time
+                    >
+                  </div>
+                  <div class="project__element project__setting">
+                    <button
+                      class="setting"
+                      type="button"
+                      (click)="voirDetails(assignment)"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg>
+                    </button>
+                  </div>
+                </div>
+              </a>
+            </li>
 
-    <div
-      cdkDropList
-      [cdkDropListData]="assignmentsRendus"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let assignment of assignmentsRendus" cdkDrag>{{assignment.nom}}</div>
-    </div>
+            
+            <section class="droppable-elements">
+              <div class="droppable" data-draggable-id="frog"><span>DEPOSER ICI POUR RENDRE</span></div>
+            </section>
+
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <aside class="aside">
+      <section class="section">
+        <div class="profile-main">
+          <button
+            class="profile-main__setting focus--box-shadow"
+            type="button"
+          >
+            <img
+              class="profile-main__photo"
+              src="./../../assets/images/logo.jpg"
+              alt="Profile photo"
+            />
+          </button>
+          <h1 class="profile-main__name">{{utilisateur.name}}</h1>
+        </div>
+        <ul class="statistics">
+          <li class="statistics__entry">
+            <a class="statistics__entry-description" href="#">Matieres</a
+            ><span class="statistics__entry-quantity">{{ matieres.length}}</span>
+          </li>
+          <li class="statistics__entry">
+            <a class="statistics__entry-description" href="#">Assignments</a
+            ><span class="statistics__entry-quantity">{{totalData.all}}</span>
+          </li>
+        </ul>
+        <div class="banner">
+          <button (click) = "addAssignment()" class="banner__button" type="button">
+           Ajouter Assignment
+          </button>
+        </div>
+      </section>
+    </aside>
   </div>
-
-  <div class="example-container">
-    <h2>Rendu</h2>
-
-    <div
-      cdkDropList
-      [cdkDropListData]="assignmentsNonRendus"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let assignment of assignmentsNonRendus" cdkDrag>{{assignment.nom}}</div>
-    </div>
-  </div>
-</div>
-
-</main>
+</body>

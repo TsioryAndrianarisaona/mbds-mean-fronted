@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { AuthService } from 'src/app/shared/auth.service';
-import { Assignment } from '../assignment.model';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -10,68 +10,120 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./assignment-detail.component.css'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  assignmentTransmis?: Assignment;
+  assignmentTransmis: any = {
+    data : {
+      assignments : [{
+        nom : "",
+        dateDeRendu: "",
+        rendu : false,
+        auteur: "",
+        matiere: "",
+        note: 0,
+        remarques: "",
+        etat: 0
+      }],
+      matiere : [[{
+        name : "",
+        prof : ""
+      }]]
+    }
+
+  };
+
+  isAdmin : any = false;
+  isEditable = false;
+
+  note !: number ;
+  remarques !: Text;
+  nomDeDevoir !: string;
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private authService:AuthService,
+    private snackbar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    public dialogRef: MatDialogRef<AssignmentDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+
 
   ngOnInit(): void {
-    // on va récupérer l'id dans l'URL,
-    // le + permet de forcer en number (au lieu de string)
-    const id = this.route.snapshot.params['id'];
-    this.getAssignment(id);
-    console.log(this.assignmentTransmis)
+    this.getAssignment(this.data.assignment._id);
+    this.isAdmin = localStorage.getItem('profil') ;
   }
 
   getAssignment(id: string) {
     // on demande au service de gestion des assignment,
     // l'assignment qui a cet id !
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+
       this.assignmentTransmis = assignment;
+      // @ts-ignore
+      let etat = assignment.data.assignments[0].etat;
+      switch(etat){
+        case 20 :
+          this.assignmentTransmis.data.assignments[0].etat = "Rendu";
+          break;
+        case 10 :
+          this.assignmentTransmis.data.assignments[0].etat = "Délivré";
+          break;
+        case 0 :
+          this.assignmentTransmis.data.assignments[0].etat = "Non Rendu";
+          break;
+      }
+      console.log(this.assignmentTransmis)
+
+      this.note = this.assignmentTransmis.data.assignments[0].note;
+      this.remarques = this.assignmentTransmis.data.assignments[0].remarques;
+      this.nomDeDevoir = this.assignmentTransmis.data.assignments[0].nom;
     });
   }
 
-  onAssignmentRendu() {
-    if (this.assignmentTransmis) {
-      this.assignmentTransmis.rendu = true;
+  enableEdit(){
+    this.isEditable = true;
+  }
 
-      this.assignmentsService
-        .updateAssignment(this.assignmentTransmis)
-        .subscribe((reponse) => {
-          console.log(reponse.message);
-          // et on navigue vers la page d'accueil pour afficher la liste
-          this.router.navigate(['/home']);
-        });
+  edit(){
+    const body = {
+      _id : this.data.assignment._id,
+      note : this.note,
+      remarques: this.remarques,
+      nom: this.nomDeDevoir
     }
-  }
 
-  onDelete() {
-    if (!this.assignmentTransmis) return;
-
-    this.assignmentsService
-      .deleteAssignment(this.assignmentTransmis)
-      .subscribe((reponse) => {
-        console.log(reponse.message);
-        // et on navigue vers la page d'accueil pour afficher la liste
-        this.router.navigate(['/home']);
-      });
-  }
-
-  onClickEdit() {
-    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'], {
-      queryParams: {
-        name: 'Michel Buffa',
-        job: 'Professeur',
+    console.log(body);
+    this.assignmentsService.updateAssignment(body).subscribe({
+      next: response => {
+        this.messageSnackBar(response.message, "OK")
       },
-      fragment: 'edition',
-    });
+      error: err => {
+        var messageDErreur = err.message;
+        this.messageSnackBar(messageDErreur, "OK")
+      }
+    })  
+    this.isEditable = false;
   }
 
-  isLoggedIn() {
-    return this.authService.loggedIn;
+  delete(){
+    const body = {
+    _id : this.data.assignment._id,
+    etat : -20
+    }
+  
+    this.assignmentsService.updateAssignment(body).subscribe({
+      next: response => {
+        this.messageSnackBar(response.message, "OK")
+        this.dialogRef.close();
+      },
+      error: err => {
+        var messageDErreur = err.message;
+        this.messageSnackBar(messageDErreur, "OK")
+      }
+    })  
+
   }
+  
+  messageSnackBar(message: string, action: string) {
+    this.snackbar.open(message, action);
+  }
+
 }

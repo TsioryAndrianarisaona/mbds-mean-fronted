@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule} from '@angular/material/dialog';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -32,11 +33,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-
-import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { AuthGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { NoterAssignmentPopupComponent } from './assignments/noter-assignment-popup/noter-assignment-popup.component';
 
 const routes:Routes = [
   {
@@ -52,17 +51,17 @@ const routes:Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssignmentComponent,
     LoginComponent,
     MainContentComponent,
     HeaderComponent,
-    LayoutComponent
+    LayoutComponent,
+    NoterAssignmentPopupComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, 
-    MatStepperModule, MatSnackBarModule, DragDropModule,
+    MatStepperModule, MatSnackBarModule, DragDropModule, MatDialogModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule, MatTableModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, AppRoutingModule
   ],
