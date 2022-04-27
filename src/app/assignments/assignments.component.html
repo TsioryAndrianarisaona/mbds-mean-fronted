@@ -198,6 +198,11 @@
               </button>
             </div>
           </header>
+
+          <section class="droppable-elements">
+            <div class="droppable"><span >Déposer ici pour rendre</span></div>
+          </section>
+
           <ul class="project" cdkDropList
           [cdkDropListData]="assignmentsRendus"
           (cdkDropListDropped)="rendre($event)">
@@ -243,11 +248,6 @@
                 </div>
               </a>
             </li>
-
-            
-            <section class="droppable-elements">
-              <div class="droppable" data-draggable-id="frog"><span>DEPOSER ICI POUR RENDRE</span></div>
-            </section>
 
           </ul>
         </section>

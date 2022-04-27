@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { Assignment } from '../assignment.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -21,18 +21,39 @@ export class AddAssignmentComponent implements OnInit {
   note!: string;
   auteur!: string;
 
-  constructor(private assignmentsService:AssignmentsService, 
-    private router:Router, 
-    private snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<AddAssignmentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+  // Stepper
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  fourthFormGroup!: FormGroup;
+
+  constructor(
+                private assignmentsService:AssignmentsService, 
+                private router:Router, 
+                private snackbar: MatSnackBar,
+                private _formBuilder: FormBuilder,
+                public dialogRef: MatDialogRef<AddAssignmentComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: any
+              ) {}
 
   ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required],
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required],
+    });
+    this.fourthFormGroup = this._formBuilder.group({
+      fourthCtrl: ['', Validators.required],
+    });
     this.getMatieres();
     console.log(this.matieres)
   }
 
-  onSubmit() {
+  ajouter() {
     if((!this.nomAssignment) || (!this.dateLimite) || (!this.matiereChoisi) || (!this.auteur)) return;
 
     let currentDate = new Date()
@@ -63,13 +84,16 @@ export class AddAssignmentComponent implements OnInit {
     })
   }
 
-
   // Récuperer les matières du prof connecté
   getMatieres(){
     this.matieres = JSON.parse(localStorage.getItem('matieres') || '{}');
   }
 
   messageSnackBar(message: string, action: string) {
-    this.snackbar.open(message, action);
+    this.snackbar.open(message, action, {duration: 2000});
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

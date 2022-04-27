@@ -38,12 +38,13 @@ export class AssignmentDetailComponent implements OnInit {
   nomDeDevoir !: string;
 
   constructor(
-    private assignmentsService: AssignmentsService,
-    private snackbar: MatSnackBar,
-    private route: ActivatedRoute,
-    private router: Router,
-    public dialogRef: MatDialogRef<AssignmentDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+            private assignmentsService: AssignmentsService,
+            private snackbar: MatSnackBar,
+            private route: ActivatedRoute,
+            private router: Router,
+            public dialogRef: MatDialogRef<AssignmentDetailComponent>,
+            @Inject(MAT_DIALOG_DATA) public data: any
+            ) {}
 
 
   ngOnInit(): void {
@@ -120,6 +121,10 @@ export class AssignmentDetailComponent implements OnInit {
       }
     })  
 
+  }
+  
+  cancel(){
+    this.isEditable = false;
   }
   
   messageSnackBar(message: string, action: string) {

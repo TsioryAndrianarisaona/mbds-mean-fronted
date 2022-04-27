@@ -1258,3 +1258,13 @@ button {
     font-size: 1rem;
   }
 }
+
+::ng-deep .mat-snack-bar-container{
+  color: #650d0d !important;
+  background-color: #fff !important;
+  border-color: #c3e6cb !important;
+}
+
+::ng-deep .mat-simple-snackbar-action {
+  color: #650d0d;
+}

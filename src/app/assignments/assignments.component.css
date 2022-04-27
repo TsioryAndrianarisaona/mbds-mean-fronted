@@ -14,18 +14,18 @@
 }
 
 .droppable {
-  height: 130px;
+  height: 100px;
   margin: 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 2rem;
   background-color: #f8f8f8;
-  border: 3px dashed #9174d8;
+  border: 1px dashed #9174d8;
   color: #9174d8;
+  border-radius: 10px;
   transition: border-width 0.2s, transform 0.2s, background-color 0.4s;
 }
 .droppable span {

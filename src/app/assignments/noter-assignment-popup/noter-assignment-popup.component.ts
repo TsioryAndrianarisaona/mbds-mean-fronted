@@ -15,13 +15,15 @@ export class NoterAssignmentPopupComponent implements OnInit {
   remarques!: Text;
 
   constructor(
-    private snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<NoterAssignmentPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+              private snackbar: MatSnackBar,
+              public dialogRef: MatDialogRef<NoterAssignmentPopupComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData
+              ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   ngOnInit(): void {
 
   }

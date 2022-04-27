@@ -2,45 +2,91 @@
 <body>
     <div class="container">
         <header>Créer Assignment</header>
+        <br>
 
-        <form action="#">
-            <div class="form first">
-                <div class="details personal">
-                    <span class="title">Details</span>
-
-                    <div class="fields">
-                        <div class="input-field">
-                            <label>Nom</label>
-                            <input [(ngModel)] = "nomAssignment" [ngModelOptions]="{standalone: true}" type="text" placeholder="Nom de devoir" required>
+        <form ngForm class="form">
+            <mat-stepper linear #stepper>
+                  <mat-step [stepControl]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup">
+                      <ng-template matStepLabel>Choisir la matière</ng-template>
+                      <div class="fields input-field">
+                          
+                          <select required [(ngModel)]="matiereChoisi" name = "matiereChoisi" formControlName="firstCtrl">
+                              <option *ngFor="let matiere of matieres" [value] = "matiere.name">{{matiere.name}}</option>
+                          </select>
+  
+                      </div>
+                      <div class="fields">
+                        <button mat-button (click) = "onNoClick()">Annuler</button>
+                        <button mat-button matStepperNext>Suivant</button>
+                      </div>
+                    </form>
+                  </mat-step>
+  
+                  <mat-step [stepControl]="secondFormGroup" label="Renseigner le devoir">
+                    <form [formGroup]="secondFormGroup">
+                      <div class=" fields input-field">
+                          <input [(ngModel)]="nomAssignment" name = "nomAssignment" matInput formControlName="secondCtrl" placeholder="Nom de l'assignment"
+                               required>
+                      </div>
+                      <div class="fields">
+                        <button mat-button (click) = "onNoClick()">Annuler</button>
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext>Suivant</button>
+                      </div>
+                    </form>
+                  </mat-step>
+                  <mat-step [stepControl]="thirdFormGroup" label="Définir la date limite">
+                      <form [formGroup]="thirdFormGroup">
+                        <div class="fields input-field">
+                            <input [(ngModel)] = "dateLimite" name = "dateLimite" matInput formControlName="thirdCtrl" type="date"
+                                 required>
                         </div>
-
-                        <div class="input-field">
-                            <label>Date Limite</label>
-                            <input [(ngModel)] = "dateLimite" [ngModelOptions]="{standalone: true}" type="date" placeholder="Ajouter la date limite" required>
+                        <div class="fields">
+                          <button mat-button (click) = "onNoClick()">Annuler</button>
+                          <button mat-button matStepperPrevious>Retour</button>
+                          <button mat-button matStepperNext>Suivant</button>
                         </div>
-
-                        <div class="input-field">
-                            <label>Auteur</label>
-                            <input [(ngModel)] = "auteur" [ngModelOptions]="{standalone: true}" type="text" placeholder="Renseigner l'élève" required>
+                      </form>
+                    </mat-step>
+  
+                    <mat-step [stepControl]="fourthFormGroup" label="Attribuer à l'élève">
+                      <form [formGroup]="fourthFormGroup">
+                        <div class="fields input-field">
+                            <input [(ngModel)]="auteur" name = "auteur" matInput formControlName="fourthCtrl" placeholder="Nom de l'élève"
+                                 required>
                         </div>
-
-                        <div class="input-field">
-                            <label>Matiere</label>
-                            <select required [(ngModel)]="matiereChoisi" [ngModelOptions]="{standalone: true}">
-                                <option disabled selected>Choisissez la matière</option>
-                                <option *ngFor="let matiere of matieres" [value] = "matiere.name">{{matiere.name}}</option>
-                            </select>
+                        <div class="fields">
+                          <button mat-button (click) = "onNoClick()">Annuler</button>
+                          <button mat-button matStepperPrevious>Retour</button>
+                          <button mat-button matStepperNext>Suivant</button>
                         </div>
-                    </div>
-                </div>
+  
+                      </form>
+                    </mat-step>
+                        
+                    <mat-step>
+                      <div class="fields">
+                            <ng-template matStepLabel>Récapitulation</ng-template>
 
-                <div>
-                    <button class="nextBtn" (click)="onSubmit()" [disabled]="((!nomAssignment) || (!dateLimite) || (!matiereChoisi) || (!auteur))">
-                        <span class="btnText">Ajouter</span>
-                        <i class="uil uil-navigator"></i>
-                    </button>
-                </div> 
-            </div>
+                          
+                            <div class="recapitulation-box">
+                                <div class="recapitulation">
+                                    <img src="./../../../assets/images/81744.jpg" alt="matiere" />
+                                    <img src="./../../../assets/images/img1.png" alt="prof" >
+                                    <div class="assignment">{{matiereChoisi}}  : {{nomAssignment}} de Michel BUFFA </div>
+                                </div>
+                                <div class="assignmentDueDate">A rendre le {{dateLimite | date:'mediumDate'}} par {{auteur}} </div>
+                            </div>
+                      </div>
+                      <div class="fields">
+                          <button mat-button (click) = "onNoClick()">Annuler</button>
+                          <button mat-button matStepperPrevious>Retour</button>
+                          <button mat-button (click)="ajouter()">Confirmer</button>
+                      </div>
+                  </mat-step>
+
+            </mat-stepper>
         </form>
     </div>
 </body>

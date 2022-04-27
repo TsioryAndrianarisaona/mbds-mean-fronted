@@ -14,7 +14,7 @@ body{
 }
 .container{
   position: relative;
-  max-width: 900px;
+  max-width: 1200px;
   width: 100%;
   border-radius: 6px;
   padding: 30px;
@@ -64,7 +64,7 @@ form.secActive .form.first{
 .container form .fields{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 }
 form .fields .input-field{
@@ -87,6 +87,7 @@ form .fields .input-field{
   border: 1px solid #aaa;
   padding: 0 15px;
   height: 42px;
+  width : 50%;
   margin: 8px 0;
 }
 .input-field input :focus,
@@ -100,7 +101,7 @@ form .fields .input-field{
 .input-field input[type="date"]:valid{
   color: #333;
 }
-.container form button, .backBtn{
+.container form button{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,10 +110,13 @@ form .fields .input-field{
   width: 100%;
   border: none;
   outline: none;
-  color: #fff;
+  color: #9174d8;
   border-radius: 5px;
   margin: 25px 0;
-  background-color: #9174d8;
+  margin-left: 10px;
+  background-color: none;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
   transition: all 0.3s linear;
   cursor: pointer;
 }
@@ -121,7 +125,7 @@ form .fields .input-field{
   font-weight: 400;
 }
 form button:hover{
-  background-color: #9174d8;
+  background-color: #242221;
 }
 form button i,
 form .backBtn i{
@@ -156,7 +160,70 @@ form .buttons button , .backBtn{
   }
 }
 
+.recapitulation-box{
+  position: relative;
+  border-radius: 12px;
+  width: 50%;
+  margin: 20px 0;
+  padding: 16px;
+  cursor: pointer;
+  border: 1px solid #aaa;
+}
+
+.recapitulation {
+  display: flex;
+  margin-top: 14px;
+}
+
+.recapitulation img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  object-fit: cover;
+  border-radius: 10%;
+  border: 1px solid #aaa;
+}
+
+.assignmentDueDate {
+  margin-bottom: 6px;
+  opacity: 0.8;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.assignment {
+  font-size: 20px;
+  font-weight: 500;
+  opacity: 0.8;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
 ::ng-deep .mat-dialog-container{
   padding: 0%;
   height: 100%;
+}
+
+::ng-deep .mat-horizontal-stepper-header .mat-step-icon{
+  background-color: #9174d8 !important;
+  color: #ecf0f3 !important;
+}
+
+::ng-deep .mat-step-header:hover {
+  background-color: #fff !important;
+}
+
+::ng-deep .mat-step-header:focus{
+  background-color: #fff !important;
+}
+
+
+::ng-deep .mat-snack-bar-container{
+  color: #650d0d !important;
+  background-color: #fff !important;
+  border-color: #c3e6cb !important;
+}
+
+::ng-deep .mat-simple-snackbar-action {
+  color: #650d0d;
 }

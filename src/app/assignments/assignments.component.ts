@@ -1,5 +1,5 @@
 
-import { Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import { Component, NgZone, OnInit} from '@angular/core';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
@@ -10,7 +10,6 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { Router } from '@angular/router';
 import { LogoutService } from '../services/logout.service';
-import { response } from 'express';
 
 
 export interface DialogData {
@@ -23,6 +22,7 @@ export interface DialogData {
   styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit {
+
   assignments:Assignment[] = [];
   assignmentsRendus:Assignment[] = [];
   assignmentsNonRendus:Assignment[] = [];
@@ -78,8 +78,12 @@ export class AssignmentsComponent implements OnInit {
     nonRendus : 2
   };
 
-  constructor(private assignmentsService:AssignmentsService, private ngZone: NgZone, public dialog: MatDialog, 
-    private snackbar: MatSnackBar, private router: Router, private logOut: LogoutService) {}
+  constructor(private assignmentsService:AssignmentsService, 
+              private ngZone: NgZone, 
+              public dialog: MatDialog, 
+              private snackbar: MatSnackBar, 
+              private router: Router, 
+              private logOut: LogoutService) {}
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {
@@ -93,7 +97,6 @@ export class AssignmentsComponent implements OnInit {
       this.getMatieres();
     }
   }
-
 
   // Récuperer utilisateur connecté
   getUtilisateur(){
@@ -131,7 +134,6 @@ export class AssignmentsComponent implements OnInit {
       console.log(this.assignments);
   }
 
-
   // Récuperer les assignments rendus
   getAssignmentsRendus(){
     
@@ -147,7 +149,6 @@ export class AssignmentsComponent implements OnInit {
       this.nextPage.rendus = reponse.data.page + 1;
     });
   }
-
 
   // Récuperer les assignments non rendus
   getAssignmentsNonRendus(){
@@ -173,12 +174,11 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignmentsRendus();
   }
 
-
   // Voir details d'un assignment
   voirDetails(assignment: Assignment){
     const dialogRef = this.dialog.open(AssignmentDetailComponent, {
       width: "75%",
-      height: "75%",
+      height: "85%",
       data: {
         assignment: assignment,
       },
@@ -208,7 +208,6 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignmentsRendus();
   }
 
-  
   pagePrecedenteNonRendus() {
     this.page.nonRendus--;
     this.getAssignmentsNonRendus();

@@ -19,10 +19,10 @@
           <p>Veuillez attribuer les notes et rajouter des remarques</p>
         <form action="#">
           <div class="input-box">
-            <input [(ngModel)]="note" [ngModelOptions]="{standalone: true}" type="number" min="0" max="20" placeholder="Note">
+            <input [(ngModel)]="note" name="note" type="number" min="0" max="20" placeholder="Note">
           </div>
           <div class="input-box">
-            <textarea [(ngModel)]="remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Remarques"></textarea>
+            <textarea [(ngModel)]="remarques" name="remarques" type="text" placeholder="Remarques"></textarea>
           </div>
           <section>
             <div class="button">

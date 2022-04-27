@@ -1,6 +1,9 @@
 <body>
   <div class="container">
-      <header>{{ data.assignment.matiere }}</header>
+      <header>
+        <img src="./../../../assets/images/img1.png">
+        <h2>{{ data.assignment.matiere }}</h2>
+      </header>
 
       <form action="#">
           <div class="form first">
@@ -10,7 +13,7 @@
                   <div class="fields">
                       <div class="input-field">
                           <label>Devoir </label>
-                          <input [(ngModel)] = "nomDeDevoir" [ngModelOptions]="{standalone: true}" type="text" placeholder = "Nom du devoir" [value] = "assignmentTransmis.data.assignments[0].nom" [readonly]="!isEditable" required  >
+                          <input [(ngModel)] = "nomDeDevoir" name="nomDeDevoir" type="text" placeholder = "Nom du devoir" [value] = "assignmentTransmis.data.assignments[0].nom" [readonly]="!isEditable" required  >
                       </div>
 
                       <div class="input-field">
@@ -42,17 +45,17 @@
                   <div class="fields">
                       <div class="input-field">
                           <label>Note</label>
-                          <input [(ngModel)] = "note" [ngModelOptions]="{standalone: true}" type="number" placeholder="Note" [value] = "assignmentTransmis.data.assignments[0].note" [readonly]="!isEditable" required>
+                          <input [(ngModel)] = "note" name="note" type="number" placeholder="Note" [value] = "assignmentTransmis.data.assignments[0].note" [readonly]="!isEditable" required>
                       </div>
 
                       <div class="input-field">
                           <label>Remarques</label>
-                          <input [(ngModel)] = "remarques" [ngModelOptions]="{standalone: true}" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
+                          <input [(ngModel)] = "remarques" name="remarques" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
                       </div>
 
                       <div *ngIf = "assignmentTransmis.data.assignments[0].rendu" class="input-field">
                           <label>Rendu le </label>
-                          <p>{{assignmentTransmis.data.assignments[0].dateDeRendu |  date :'medium' }} </p>
+                          <p>{{assignmentTransmis.data.assignments[0].dateDeRendu |  date :'mediumDate' }} </p>
                       </div>
                   </div>
 
@@ -68,6 +71,11 @@
                         <span class="btnText">Modifier</span>
                         <i class="uil uil-navigator"></i>
                     </button>
+
+                    <button class="cancelBtn" *ngIf="isAdmin && isEditable" (click)="cancel()">
+                        <span class="btnText">Annuler</span>
+                        <i class="uil uil-navigator"></i>
+                      </button>
   
                     <button class="editBtn" *ngIf="isAdmin && isEditable" (click)="edit()">
                       <span class="btnText">Modifier</span>
