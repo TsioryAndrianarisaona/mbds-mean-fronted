@@ -56,20 +56,25 @@
                       </div>
                   </div>
 
-                  <button class="nextBtn" *ngIf="isAdmin && !isEditable" (click)="enableEdit()">
-                      <span class="btnText">Modifier</span>
+
+                  <div class = "fields">
+  
+                    <button class="deleteBtn" *ngIf="isAdmin" (click)="delete()">
+                      <span class="btnText">Supprimer</span>
                       <i class="uil uil-navigator"></i>
                   </button>
 
-                  <button class="nextBtn" *ngIf="isAdmin && isEditable" (click)="edit()">
-                    <span class="btnText">Modifier</span>
-                    <i class="uil uil-navigator"></i>
-                  </button>
+                    <button class="editBtn" *ngIf="isAdmin && !isEditable" (click)="enableEdit()">
+                        <span class="btnText">Modifier</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+  
+                    <button class="editBtn" *ngIf="isAdmin && isEditable" (click)="edit()">
+                      <span class="btnText">Modifier</span>
+                      <i class="uil uil-navigator"></i>
+                    </button>
 
-                  <button class="nextBtn" *ngIf="isAdmin" (click)="delete()">
-                    <span class="btnText">Supprimer</span>
-                    <i class="uil uil-navigator"></i>
-                </button>
+                  </div>
               </div> 
           </div>
 

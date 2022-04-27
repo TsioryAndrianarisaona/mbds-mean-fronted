@@ -95,17 +95,24 @@ export class AssignmentsComponent implements OnInit {
   }
 
 
-
+  // Récuperer utilisateur connecté
   getUtilisateur(){
     let utilisateur = JSON.parse(localStorage.getItem('utilisateur') || '{}');
     this.utilisateur = utilisateur;
   }
 
+  // Récuperer matieres liées au prof connecté 
   getMatieres(){
     let matieres = JSON.parse(localStorage.getItem('matieres') || '{}');
     this.matieres = matieres;
   }
 
+
+
+  // ------------------------------------------ Assignments ----------------------------------------------- //
+  // ----------------------------------------------------------------------------------------------------- //
+
+  // Récupérer tous les assignments
   getAssignments() {
       // demander les données au service de gestion des assignments...
       this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], "")
@@ -124,6 +131,8 @@ export class AssignmentsComponent implements OnInit {
       console.log(this.assignments);
   }
 
+
+  // Récuperer les assignments rendus
   getAssignmentsRendus(){
     
     this.assignmentsService.getAssignments(this.page.rendus, this.limit, [20], this.matiereSearch)
@@ -139,6 +148,8 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
+
+  // Récuperer les assignments non rendus
   getAssignmentsNonRendus(){
       
     this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch)
@@ -156,10 +167,36 @@ export class AssignmentsComponent implements OnInit {
 
   }
 
+  // Rechercher assignments par matière
   search(){
     this.getAssignmentsNonRendus();
     this.getAssignmentsRendus();
   }
+
+
+  // Voir details d'un assignment
+  voirDetails(assignment: Assignment){
+    const dialogRef = this.dialog.open(AssignmentDetailComponent, {
+      width: "75%",
+      height: "75%",
+      data: {
+        assignment: assignment,
+      },
+    });
+  }
+
+  // Ajouter assignment
+  addAssignment(){
+    const dialogRef = this.dialog.open(AddAssignmentComponent, {});
+  }
+
+  // ------------------------------------------ Assignments ----------------------------------------------- //
+  // ----------------------------------------------------------------------------------------------------- //
+
+
+
+  // ------------------------------------------ Pagination ------------------------------------------------ //
+  // ----------------------------------------------------------------------------------------------------- //
 
   pagePrecedenteRendus() {
     this.page.rendus--;
@@ -192,6 +229,8 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignments();
   }
 
+  // ------------------------------------------ Pagination ------------------------------------------------ //
+  // ----------------------------------------------------------------------------------------------------- //
 
   // Rendre un devoir ( drag and drop feature)
   rendre(event: CdkDragDrop<any[]>) {
@@ -241,28 +280,14 @@ export class AssignmentsComponent implements OnInit {
     this.snackbar.open(message, action);
   }
 
-  voirDetails(assignment: Assignment){
-    const dialogRef = this.dialog.open(AssignmentDetailComponent, {
-      width: "75%",
-      height: "75%",
-      data: {
-        assignment: assignment,
-      },
-    });
-  }
-
-  addAssignment(){
-    const dialogRef = this.dialog.open(AddAssignmentComponent, {
-      width: "75%",
-      height: "75%"
-    });
-  }
-
+  // Se déconnecter
   logout() {
     this.logOut.logout();
     this.router.navigate(['/']);
   }
 
+
+  // Formattage
   getEtat(etat:number){
     var etatFinal = "non rendu";
     switch(etat){
