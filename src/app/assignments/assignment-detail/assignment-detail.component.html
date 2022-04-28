@@ -1,8 +1,8 @@
 <body>
   <div class="container">
       <header>
-        <img [src]="assignmentTransmis.data.matiere[0][0].image">
-        <h2>{{ assignmentTransmis.data.matiere[0][0].name }}</h2>
+        <img [src]="matiere.image">
+        <h2>{{ matiere.name }}</h2>
       </header>
 
       <form action="#">
@@ -13,27 +13,27 @@
                   <div class="fields">
                       <div class="input-field">
                           <label>Devoir </label>
-                          <input [(ngModel)] = "nomDeDevoir" name="nomDeDevoir" type="text" placeholder = "Nom du devoir" [value] = "assignmentTransmis.data.assignments[0].nom" [readonly]="!isEditable" required  >
+                          <input [(ngModel)] = "assignmentTransmis.nom" name="nomDeDevoir" type="text" placeholder = "Nom du devoir" [value] = "assignmentTransmis.nom" [readonly]="!isEditable" required  >
                       </div>
 
                       <div class="input-field">
                           <label>Date Limite</label>
-                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateLimite | date:'yyyy-MM-dd' " [readonly]="true" required>
+                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.dateLimite | date:'yyyy-MM-dd' " [readonly]="true" required>
                       </div>
 
                       <div class="input-field">
                           <label>Professeur</label>
-                          <input type="text" placeholder="Professeur" [value] = "assignmentTransmis.data.matiere[0][0].prof" [readonly]="true" required>
+                          <input type="text" placeholder="Professeur" [value] = "matiere.prof" [readonly]="true" required>
                       </div>
 
                       <div class="input-field">
                           <label>Devoir de : </label>
-                          <input type="text" placeholder="Eleve" [value] = "assignmentTransmis.data.assignments[0].auteur" [readonly]="true" required>
+                          <input type="text" placeholder="Eleve" [value] = "assignmentTransmis.auteur" [readonly]="true" required>
                       </div>
 
                       <div class="input-field">
                           <label>Statut</label>
-                          <input type="text" placeholder="Statut" [value] = "assignmentTransmis.data.assignments[0].etat" [readonly]="true" required>
+                          <input type="text" placeholder="Statut" [value] = "assignmentTransmis.etat" [readonly]="true" required>
                       </div>
 
                   </div>
@@ -45,17 +45,17 @@
                   <div class="fields">
                       <div class="input-field">
                           <label>Note</label>
-                          <input [(ngModel)] = "note" name="note" type="number" placeholder="Note" [value] = "assignmentTransmis.data.assignments[0].note" [readonly]="!isEditable" required>
+                          <input [(ngModel)] = "assignmentTransmis.note" name="note" type="number" placeholder="Note" [value] = "assignmentTransmis.note" [readonly]="!isEditable" required>
                       </div>
 
                       <div class="input-field">
                           <label>Remarques</label>
-                          <textarea [(ngModel)] = "remarques" name="remarques" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required></textarea>
+                          <textarea [(ngModel)] = "assignmentTransmis.remarques" name="remarques" type="text" placeholder="Remarques" [value] = "assignmentTransmis.remarques" [readonly]="!isEditable" required></textarea>
                       </div>
 
-                      <div *ngIf = "assignmentTransmis.data.assignments[0].rendu" class="input-field">
+                      <div *ngIf = "assignmentTransmis.rendu" class="input-field">
                           <label>Rendu le </label>
-                          <p>{{assignmentTransmis.data.assignments[0].dateDeRendu |  date :'mediumDate' }} </p>
+                          <p>{{assignmentTransmis.dateDeRendu |  date :'mediumDate' }} </p>
                       </div>
                   </div>
 

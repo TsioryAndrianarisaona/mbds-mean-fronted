@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Assignment } from '../assignment.model';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -10,32 +11,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./assignment-detail.component.css'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  assignmentTransmis: any = {
-    data : {
-      assignments : [{
-        nom : "",
-        dateDeRendu: "",
-        rendu : false,
-        auteur: "",
-        matiere: "",
-        note: 0,
-        remarques: "",
-        etat: 0
-      }],
-      matiere : [[{
-        name : "",
-        prof : ""
-      }]]
-    }
+  assignmentTransmis: Assignment = new Assignment();
+  matiere: any = {
+    name : "",
+    prof : "",
+    image : ""
+  }
 
-  };
+  assignmentT : Assignment = new Assignment();
 
   isAdmin : any = false;
   isEditable = false;
-
-  note !: number ;
-  remarques !: Text;
-  nomDeDevoir !: string;
 
   constructor(
             private assignmentsService: AssignmentsService,
@@ -57,25 +43,23 @@ export class AssignmentDetailComponent implements OnInit {
     // l'assignment qui a cet id !
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
 
-      this.assignmentTransmis = assignment;
       // @ts-ignore
-      let etat = assignment.data.assignments[0].etat;
+      this.assignmentTransmis = assignment.data.assignments[0];
+      // @ts-ignore
+      this.matiere = assignment.data.matiere[0][0];
+      // @ts-ignore
+      let etat = this.assignmentTransmis.etat;
       switch(etat){
         case 20 :
-          this.assignmentTransmis.data.assignments[0].etat = "Rendu";
+          this.assignmentTransmis.etat = "Rendu";
           break;
         case 10 :
-          this.assignmentTransmis.data.assignments[0].etat = "Délivré";
+          this.assignmentTransmis.etat = "Délivré";
           break;
         case 0 :
-          this.assignmentTransmis.data.assignments[0].etat = "Non Rendu";
+          this.assignmentTransmis.etat = "Non Rendu";
           break;
       }
-      console.log(this.assignmentTransmis)
-
-      this.note = this.assignmentTransmis.data.assignments[0].note;
-      this.remarques = this.assignmentTransmis.data.assignments[0].remarques;
-      this.nomDeDevoir = this.assignmentTransmis.data.assignments[0].nom;
     });
   }
 
@@ -85,7 +69,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   edit(){
 
-    if(+this.note < 0 || +this.note > 20){
+    if(+this.assignmentTransmis.note < 0 || +this.assignmentTransmis.note > 20){
       var messageDErreur = "Veuillez donner une note valide";
       this.messageSnackBar(messageDErreur, "OK");
       return;
@@ -93,12 +77,11 @@ export class AssignmentDetailComponent implements OnInit {
 
     const body = {
       _id : this.data.assignment._id,
-      note : this.note,
-      remarques: this.remarques,
-      nom: this.nomDeDevoir
+      note : this.assignmentTransmis.note,
+      remarques: this.assignmentTransmis.remarques,
+      nom: this.assignmentTransmis.nom
     }
 
-    console.log(body);
     this.assignmentsService.updateAssignment(body).subscribe({
       next: response => {
         this.messageSnackBar(response.message, "OK")
@@ -120,7 +103,7 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentsService.updateAssignment(body).subscribe({
       next: response => {
         this.messageSnackBar(response.message, "OK")
-        this.dialogRef.close();
+        this.onNoClick()
       },
       error: err => {
         var messageDErreur = err.message;

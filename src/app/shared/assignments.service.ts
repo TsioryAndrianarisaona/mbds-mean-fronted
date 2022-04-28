@@ -33,9 +33,6 @@ export class AssignmentsService {
       etat : etat,
       matiere : JSON.parse(JSON.stringify(matieres)),
     }
-
-    console.log(body)
-
     return this.http.post<Assignment[]>(this.url+"/etat", body)
   }
 
@@ -45,9 +42,6 @@ export class AssignmentsService {
 
   private handleError<T>(operation: any, result?: T) {
     return (error: any): Observable<T> => {
-      console.log(error); // pour afficher dans la console
-      console.log(operation + ' a échoué ' + error.message);
-
       return of(result as T);
     }
   }
@@ -82,10 +76,7 @@ export class AssignmentsService {
       newAssignment.id = a.id;
 
       this.addAssignment(newAssignment)
-      .subscribe(reponse => {
-        console.log(reponse.message);
-      })
-    })
+      .subscribe(reponse => {})})
   }
 
   peuplerBDAvecForkJoin(): Observable<any> {

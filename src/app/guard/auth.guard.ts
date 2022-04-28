@@ -20,9 +20,6 @@ export class AuthGuard implements CanActivate {
     // Verifier si le token est expiré
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(this.auth.getToken());
-
-    console.log('token', isExpired);
-
     if(isExpired){
       this.router.navigate(['']);
       return false;

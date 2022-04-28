@@ -87,7 +87,6 @@ export class AssignmentsComponent implements OnInit {
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {
-    console.log("Dans ngOnInit, appelé avant l'affichage");
     this.getAssignments();
     this.getAssignmentsNonRendus();
     this.getAssignmentsRendus();
@@ -130,8 +129,6 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage.all = reponse.data.page - 1;
         this.nextPage.all = reponse.data.page + 1;
       });
-
-      console.log(this.assignments);
   }
 
   // Récuperer les assignments rendus
@@ -155,7 +152,6 @@ export class AssignmentsComponent implements OnInit {
       
     this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch)
     .subscribe(reponse => {
-      console.log("assignments non rendus : données arrivées");
       this.assignmentsNonRendus = reponse.data.assignments;
       this.page.nonRendus = reponse.data.page;
       this.totalData.nonRendus = reponse.data.total
@@ -183,11 +179,19 @@ export class AssignmentsComponent implements OnInit {
         assignment: assignment,
       },
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+    });
+
   }
 
   // Ajouter assignment
   addAssignment(){
     const dialogRef = this.dialog.open(AddAssignmentComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 
   // ------------------------------------------ Assignments ----------------------------------------------- //
@@ -234,13 +238,10 @@ export class AssignmentsComponent implements OnInit {
   // Rendre un devoir ( drag and drop feature)
   rendre(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
-
-      console.log("hello")
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-
+    } 
+    else {
       var assignment = event.previousContainer.data[event.previousIndex];
-
       const dialogRef = this.dialog.open(NoterAssignmentPopupComponent, {
         data: {
           assignment: assignment,
@@ -254,11 +255,9 @@ export class AssignmentsComponent implements OnInit {
           remarques : result.remarques
         }
   
-        console.log('body', body)
-  
         this.assignmentsService.updateAssignment(body).subscribe({
           next: response => {
-            
+          
             transferArrayItem(
             event.previousContainer.data,
             event.container.data,

@@ -54,14 +54,12 @@ export class AddAssignmentComponent implements OnInit {
       auteurCtrl: ['', Validators.required],
     });
     this.getMatieres();
-    console.log(this.matieres)
   }
 
   ajouter() {
     if((!this.nomAssignment) || (!this.dateLimite) || (!this.matiereChoisi.name) || (!this.auteur)) return;
 
     let currentDate = new Date()
-    console.log(this.dateLimite)
     //Verifier si la date limite est valide
     if( new Date(this.dateLimite) < currentDate){
       // Afficher message d'erreur si la note n'est pas valide
@@ -77,8 +75,6 @@ export class AddAssignmentComponent implements OnInit {
       matiere: this.matiereChoisi.name,
       remarques: null
       }
-
-      console.log(body);
     
     this.assignmentsService.addAssignment(body)
     .subscribe(reponse => {

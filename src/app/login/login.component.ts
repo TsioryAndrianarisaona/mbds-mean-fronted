@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       'email': this.loginForm.value.userName,
       'password': this.loginForm.value.password
     }
-    console.log(userLog);
 
     this.auth.login(userLog).subscribe({
       next: res => {

@@ -8,10 +8,7 @@ export class LoggingService {
 
   constructor() { }
 
-  log(nomAssignment:string, action:string) {
-    if(this.niveauDeLog > 1)
-      console.log(`loggin service: ${nomAssignment} ${action}`)
-  }
+  log(nomAssignment:string, action:string) {}
 
   setNiveauTrace(val:number) {
     this.niveauDeLog = val;
