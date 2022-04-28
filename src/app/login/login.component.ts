@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 
 @Component({
@@ -12,8 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
               private router: Router,
-              private auth: AuthService,
-              private formBuilder: FormBuilder
+              private auth: AuthService
               ) {
                   this.loginForm = new FormGroup({
                     userName: new FormControl(),
@@ -22,11 +21,7 @@ export class LoginComponent implements OnInit {
                 }
 
   ngOnInit(): void {
-    if(this.auth.isLoggedIn()) {
-      this.router.navigate(['./home']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['./home']);
   }
 
   loginForm: FormGroup;
@@ -53,7 +48,6 @@ export class LoginComponent implements OnInit {
 
         // Stocker les matières associés à l'utilisateur
         // @ts-ignore
-
         localStorage.setItem('matieres', JSON.stringify(res.matiere));
       },
       error: () => {
@@ -63,7 +57,6 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.router.navigate(['./home']);
-        console.log(localStorage.getItem('utilisateur'))
       }
     }) 
   }

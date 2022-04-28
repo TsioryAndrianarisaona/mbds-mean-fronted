@@ -84,6 +84,13 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   edit(){
+
+    if(+this.note < 0 || +this.note > 20){
+      var messageDErreur = "Veuillez donner une note valide";
+      this.messageSnackBar(messageDErreur, "OK");
+      return;
+    }
+
     const body = {
       _id : this.data.assignment._id,
       note : this.note,
@@ -126,7 +133,7 @@ export class AssignmentDetailComponent implements OnInit {
   cancel(){
     this.isEditable = false;
   }
-  
+
   onNoClick(): void {
     this.dialogRef.close();
   }

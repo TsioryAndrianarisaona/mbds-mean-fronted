@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-assignment',
@@ -22,14 +22,13 @@ export class AddAssignmentComponent implements OnInit {
   auteur!: string;
 
   // Stepper
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
-  thirdFormGroup!: FormGroup;
-  fourthFormGroup!: FormGroup;
+  matiereFormGroup!: FormGroup;
+  nomAssignmentFormGroup!: FormGroup;
+  dateFormGroup!: FormGroup;
+  auteurFormGroup!: FormGroup;
 
   constructor(
-                private assignmentsService:AssignmentsService, 
-                private router:Router, 
+                private assignmentsService:AssignmentsService,
                 private snackbar: MatSnackBar,
                 private _formBuilder: FormBuilder,
                 public dialogRef: MatDialogRef<AddAssignmentComponent>,
@@ -37,17 +36,17 @@ export class AddAssignmentComponent implements OnInit {
               ) {}
 
   ngOnInit(): void {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+    this.matiereFormGroup = this._formBuilder.group({
+      matiereCtrl: ['', Validators.required],
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+    this.nomAssignmentFormGroup = this._formBuilder.group({
+      nomAssignmentCtrl: ['', Validators.required],
     });
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required],
+    this.dateFormGroup = this._formBuilder.group({
+      dateCtrl: ['', Validators.required],
     });
-    this.fourthFormGroup = this._formBuilder.group({
-      fourthCtrl: ['', Validators.required],
+    this.auteurFormGroup = this._formBuilder.group({
+      auteurCtrl: ['', Validators.required],
     });
     this.getMatieres();
     console.log(this.matieres)

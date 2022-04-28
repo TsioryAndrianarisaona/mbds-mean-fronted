@@ -6,12 +6,12 @@
 
         <form ngForm class="form">
             <mat-stepper linear #stepper>
-                  <mat-step [stepControl]="firstFormGroup">
-                    <form [formGroup]="firstFormGroup">
+                  <mat-step [stepControl]="matiereFormGroup">
+                    <form [formGroup]="matiereFormGroup">
                       <ng-template matStepLabel>Choisir la matière</ng-template>
                       <div class="fields input-field">
                           
-                          <select required [(ngModel)]="matiereChoisi" name = "matiereChoisi" formControlName="firstCtrl">
+                          <select required [(ngModel)]="matiereChoisi" name = "matiereChoisi" formControlName="matiereCtrl">
                               <option *ngFor="let matiere of matieres" [value] = "matiere.name">{{matiere.name}}</option>
                           </select>
   
@@ -23,10 +23,10 @@
                     </form>
                   </mat-step>
   
-                  <mat-step [stepControl]="secondFormGroup" label="Renseigner le devoir">
-                    <form [formGroup]="secondFormGroup">
+                  <mat-step [stepControl]="nomAssignmentFormGroup" label="Renseigner le devoir">
+                    <form [formGroup]="nomAssignmentFormGroup">
                       <div class=" fields input-field">
-                          <input [(ngModel)]="nomAssignment" name = "nomAssignment" matInput formControlName="secondCtrl" placeholder="Nom de l'assignment"
+                          <input [(ngModel)]="nomAssignment" name = "nomAssignment" matInput formControlName="nomAssignmentCtrl" placeholder="Nom de l'assignment"
                                required>
                       </div>
                       <div class="fields">
@@ -36,10 +36,10 @@
                       </div>
                     </form>
                   </mat-step>
-                  <mat-step [stepControl]="thirdFormGroup" label="Définir la date limite">
-                      <form [formGroup]="thirdFormGroup">
+                  <mat-step [stepControl]="dateFormGroup" label="Définir la date limite">
+                      <form [formGroup]="dateFormGroup">
                         <div class="fields input-field">
-                            <input [(ngModel)] = "dateLimite" name = "dateLimite" matInput formControlName="thirdCtrl" type="date"
+                            <input [(ngModel)] = "dateLimite" name = "dateLimite" matInput formControlName="dateCtrl" type="date"
                                  required>
                         </div>
                         <div class="fields">
@@ -50,10 +50,10 @@
                       </form>
                     </mat-step>
   
-                    <mat-step [stepControl]="fourthFormGroup" label="Attribuer à l'élève">
-                      <form [formGroup]="fourthFormGroup">
+                    <mat-step [stepControl]="auteurFormGroup" label="Attribuer à l'élève">
+                      <form [formGroup]="auteurFormGroup">
                         <div class="fields input-field">
-                            <input [(ngModel)]="auteur" name = "auteur" matInput formControlName="fourthCtrl" placeholder="Nom de l'élève"
+                            <input [(ngModel)]="auteur" name = "auteur" matInput formControlName="auteurCtrl" placeholder="Nom de l'élève"
                                  required>
                         </div>
                         <div class="fields">

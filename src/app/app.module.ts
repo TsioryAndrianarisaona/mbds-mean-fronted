@@ -26,15 +26,12 @@ import { NonRenduDirective } from './shared/non-rendu.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
-import { MainContentComponent } from './main-content/main-content.component';
-import {HeaderComponent} from "./header/header.component";
 
 import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { LoginComponent } from './login/login.component';
-import { LayoutComponent } from './layout/layout.component';
 import { NoterAssignmentPopupComponent } from './assignments/noter-assignment-popup/noter-assignment-popup.component';
 
 const routes:Routes = [
@@ -52,9 +49,6 @@ const routes:Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     LoginComponent,
-    MainContentComponent,
-    HeaderComponent,
-    LayoutComponent,
     NoterAssignmentPopupComponent
   ],
   imports: [
