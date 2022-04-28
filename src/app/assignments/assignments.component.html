@@ -131,11 +131,11 @@
                 <div class="project__wrapper">
                   <div class="project__element project__icon">
                     <div
-                      class="icon icon--viking"
+                      class="icon icon--matiere"
                       aria-label="Matiere"
                     >
                     <img
-                    src="./../../assets/images/img1.png"
+                    [src]="assignment.matiereDetails[0].image"
                     alt="Matiere Photo"
                   />
                     </div>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="project__element project__date">
                     <time class="date"
-                      >{{assignment.dateDeRendu}}</time
+                      >{{ assignment.dateLimite | date:'mediumDate'}}</time
                     >
                   </div>
                 </div>
@@ -202,11 +202,11 @@
                 <div class="project__wrapper">
                   <div class="project__element project__icon">
                     <div
-                      class="icon icon--viking"
+                      class="icon icon--matiere"
                       aria-label="Matiere"
                     >
                     <img
-                    src="./../../assets/images/img1.png"
+                    [src]="assignment.matiereDetails[0].image"
                     alt="Matiere Photo"
                   />
                     </div>
@@ -222,7 +222,7 @@
                   </div>
                   <div class="project__element project__date">
                     <time class="date"
-                      >{{assignment.dateDeRendu}}</time
+                      >{{assignment.dateDeRendu | date:'mediumDate'}}</time
                     >
                   </div>
                 </div>
@@ -268,18 +268,13 @@
               <div class="project__wrapper">
                 <div class="project__element project__icon">
                   <div
-                    class="icon icon--viking"
-                    aria-label="Icon of the 'Showcase Design' project"
+                    class="icon icon--matiere"
+                    aria-label="Icon Matière"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      role="presentation"
-                    >
-                      <path
-                        d="M7,10H9A1,1,0,0,0,9,8H7a1,1,0,0,0,0,2ZM21,4H13V3a1,1,0,0,0-2,0V4H3A1,1,0,0,0,2,5V15a3,3,0,0,0,3,3H9.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L11,19.41V21a1,1,0,0,0,2,0V19.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L14.41,18H19a3,3,0,0,0,3-3V5A1,1,0,0,0,21,4ZM20,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V6H20ZM7,14h6a1,1,0,0,0,0-2H7a1,1,0,0,0,0,2Z"
-                      />
-                    </svg>
+                  <img
+                    [src]="assignment.matiereDetails[0].image"
+                    alt="Matiere Photo"
+                  />
                   </div>
                 </div>
                 <div class="project__element project__inform">
@@ -296,7 +291,7 @@
 
                 <div class="project__element project__date">
                   <time class="date" datetime="2020-05-05T10:00:00"
-                    >dû le {{ assignment.dateDeRendu }}</time
+                    >dû le {{ assignment.dateLimite | date:'mediumDate' }}</time
                   >
                 </div>
                 <div class="project__element project__status">
@@ -317,7 +312,7 @@
           <div class="profile-pic">
             <img
                 class="profile-main__photo"
-                src="./../../assets/images/img.jpg"
+                [src]="utilisateur.image"
                 alt="Profile photo"
             />
           </div>
@@ -325,11 +320,11 @@
         </div>
         <ul class="statistics">
           <li class="statistics__entry" *ngIf="isAdmin" >
-            <a class="statistics__entry-description" href="#">Matieres</a
+            <a class="statistics__entry-description">Matieres</a
             ><span class="statistics__entry-quantity">{{ matieres.length}}</span>
           </li>
           <li class="statistics__entry">
-            <a class="statistics__entry-description" href="#">Assignments</a
+            <a class="statistics__entry-description">Assignments</a
             ><span class="statistics__entry-quantity">{{totalData.all}}</span>
           </li>
         </ul>

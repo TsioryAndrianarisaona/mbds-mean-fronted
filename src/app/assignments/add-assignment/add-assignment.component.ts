@@ -17,7 +17,12 @@ export class AddAssignmentComponent implements OnInit {
   dateDeRendu!: Date;
   dateLimite!: Date;
   matieres : any[] = [];
-  matiereChoisi!: string;
+  matiereChoisi: any = {
+    id : "",
+    name : "",
+    image: "",
+    prof : ""
+  };
   note!: string;
   auteur!: string;
 
@@ -53,7 +58,7 @@ export class AddAssignmentComponent implements OnInit {
   }
 
   ajouter() {
-    if((!this.nomAssignment) || (!this.dateLimite) || (!this.matiereChoisi) || (!this.auteur)) return;
+    if((!this.nomAssignment) || (!this.dateLimite) || (!this.matiereChoisi.name) || (!this.auteur)) return;
 
     let currentDate = new Date()
     console.log(this.dateLimite)
@@ -64,23 +69,22 @@ export class AddAssignmentComponent implements OnInit {
       this.messageSnackBar(messageDErreur, "OK")
       return;
     }
-
-    console.log(
-      'nom = ' + this.nomAssignment + ' date de rendu = ' + this.dateDeRendu + ' matiere : '+ this.matiereChoisi
-    );
     
     const body = {
       nom : this.nomAssignment,
       dateLimite : new Date(this.dateLimite),
       auteur: this.auteur,
-      matiere: this.matiereChoisi
+      matiere: this.matiereChoisi.name,
+      remarques: null
       }
+
+      console.log(body);
     
     this.assignmentsService.addAssignment(body)
     .subscribe(reponse => {
       this.messageSnackBar(reponse.message, "");
       this.dialogRef.close();
-    })
+    }) 
   }
 
   // Récuperer les matières du prof connecté

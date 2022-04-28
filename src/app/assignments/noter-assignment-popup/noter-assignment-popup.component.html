@@ -3,7 +3,7 @@
       <div class="content">
         <div class="left-side">
           <div class="details">
-            <img src="./../../../assets/images/img1.png">
+            <img [src]="data.assignment.matiereDetails[0].image">
           </div>
           <div class="details">
             <div class="status status--published">
@@ -12,7 +12,7 @@
           </div>
           <div class="details">
             <div class="topic">de <span class="status status--published">{{data.assignment.auteur}}</span></div>
-            <div class="text-one">dû le {{data.assignment.dateDeRendu}}</div>
+            <div class="text-one">dû le {{data.assignment.dateLimite | date:'mediumDate'}}</div>
           </div>
         </div>
         <div class="right-side">

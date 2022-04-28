@@ -1,8 +1,8 @@
 <body>
   <div class="container">
       <header>
-        <img src="./../../../assets/images/img1.png">
-        <h2>{{ data.assignment.matiere }}</h2>
+        <img [src]="assignmentTransmis.data.matiere[0][0].image">
+        <h2>{{ assignmentTransmis.data.matiere[0][0].name }}</h2>
       </header>
 
       <form action="#">
@@ -18,7 +18,7 @@
 
                       <div class="input-field">
                           <label>Date Limite</label>
-                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateDeRendu | date : 'yyyy-MM-dd' " [readonly]="true" required>
+                          <input type="date" placeholder =" Date Limite" [value] = "assignmentTransmis.data.assignments[0].dateLimite | date:'yyyy-MM-dd' " [readonly]="true" required>
                       </div>
 
                       <div class="input-field">

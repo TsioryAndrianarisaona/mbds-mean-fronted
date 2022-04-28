@@ -265,6 +265,9 @@ export class AssignmentsComponent implements OnInit {
             event.previousIndex,
             event.currentIndex,
             );
+
+            // Set date de rendu to today's datae
+            event.container.data[event.currentIndex].dateDeRendu = new Date();
           },
           error: err => {
             var messageDErreur = err.message;

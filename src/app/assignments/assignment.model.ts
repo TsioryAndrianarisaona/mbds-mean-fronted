@@ -9,4 +9,5 @@ export class Assignment {
   note!:number;
   matiere!:string;
   etat!:number;
+  matiereDetails!: any;
 }

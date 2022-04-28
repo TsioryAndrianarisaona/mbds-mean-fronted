@@ -12,7 +12,7 @@
                       <div class="fields input-field">
                           
                           <select required [(ngModel)]="matiereChoisi" name = "matiereChoisi" formControlName="matiereCtrl">
-                              <option *ngFor="let matiere of matieres" [value] = "matiere.name">{{matiere.name}}</option>
+                              <option *ngFor="let matiere of matieres" [ngValue] = "matiere">{{matiere.name}}</option>
                           </select>
   
                       </div>
@@ -72,9 +72,8 @@
                           
                             <div class="recapitulation-box">
                                 <div class="recapitulation">
-                                    <img src="./../../../assets/images/81744.jpg" alt="matiere" />
-                                    <img src="./../../../assets/images/img1.png" alt="prof" >
-                                    <div class="assignment">{{matiereChoisi}}  : {{nomAssignment}} de Michel BUFFA </div>
+                                    <img [src]="matiereChoisi.image" alt="matiere" />
+                                    <div class="assignment">{{matiereChoisi.name}}  : {{nomAssignment}} de {{matiereChoisi.prof}} </div>
                                 </div>
                                 <div class="assignmentDueDate">A rendre le {{dateLimite | date:'mediumDate'}} par {{auteur}} </div>
                             </div>

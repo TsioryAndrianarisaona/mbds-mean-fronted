@@ -75,6 +75,7 @@ a {
   text-decoration: none;
   color: var(--dune);
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
 @media (hover: hover) {
@@ -934,7 +935,7 @@ button {
   fill: var(--alabaster);
 }
 
-.icon--viking {
+.icon--matiere {
   background-color: var(--viking);
 }
 
