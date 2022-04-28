@@ -127,6 +127,10 @@ export class AssignmentDetailComponent implements OnInit {
     this.isEditable = false;
   }
   
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
   messageSnackBar(message: string, action: string) {
     this.snackbar.open(message, action);
   }

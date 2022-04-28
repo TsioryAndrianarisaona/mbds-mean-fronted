@@ -234,6 +234,8 @@ export class AssignmentsComponent implements OnInit {
   // Rendre un devoir ( drag and drop feature)
   rendre(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
+
+      console.log("hello")
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
 

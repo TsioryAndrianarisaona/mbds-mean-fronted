@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 body{
   width: 100%;
@@ -71,22 +71,66 @@ body{
   color: #9174d8;
 }
 .right-side .input-box{
-  height: 50px;
-  width: 100%;
-  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .right-side .input-box input,
 .right-side .input-box textarea{
-  height: 100%;
-  width: 100%;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  width: 400px;
+  margin: 8px 0;
+}
+
+.fields{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fields button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  width: 150px;
   border: none;
   outline: none;
-  font-size: 16px;
-  background: #F0F1F8;
-  border-radius: 6px;
-  padding: 0 15px;
-  resize: none;
+  color: #9174d8;
+  border-radius: 5px;
+  margin: 25px 0;
+  margin-left: 10px;
+  background-color: none;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  transition: all 0.3s linear;
+  cursor: pointer;
 }
+
+img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+
+.fields button:hover{
+  background-color: #242221;
+}
+
+.right-side .input-box textarea{
+  height: 100px;
+}
+
 .right-side .message-box{
   min-height: 110px;
 }

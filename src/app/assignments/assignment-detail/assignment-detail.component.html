@@ -50,7 +50,7 @@
 
                       <div class="input-field">
                           <label>Remarques</label>
-                          <input [(ngModel)] = "remarques" name="remarques" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required>
+                          <textarea [(ngModel)] = "remarques" name="remarques" type="text" placeholder="Remarques" [value] = "assignmentTransmis.data.assignments[0].remarques" [readonly]="!isEditable" required></textarea>
                       </div>
 
                       <div *ngIf = "assignmentTransmis.data.assignments[0].rendu" class="input-field">
@@ -61,6 +61,11 @@
 
 
                   <div class = "fields">
+
+                    <button class="cancelBtn" *ngIf="!isEditable" (click)="onNoClick()">
+                        <span class="btnText">Fermer</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
   
                     <button class="deleteBtn" *ngIf="isAdmin" (click)="delete()">
                       <span class="btnText">Supprimer</span>
@@ -75,7 +80,7 @@
                     <button class="cancelBtn" *ngIf="isAdmin && isEditable" (click)="cancel()">
                         <span class="btnText">Annuler</span>
                         <i class="uil uil-navigator"></i>
-                      </button>
+                    </button>
   
                     <button class="editBtn" *ngIf="isAdmin && isEditable" (click)="edit()">
                       <span class="btnText">Modifier</span>

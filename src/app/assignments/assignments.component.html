@@ -126,7 +126,7 @@
           <ul class="project" cdkDropList
           [cdkDropListData]="assignmentsNonRendus"
           (cdkDropListDropped)="rendre($event)">
-            <li class="project__item" *ngFor="let assignment of assignmentsNonRendus" cdkDrag>
+            <li class="project__item" *ngFor="let assignment of assignmentsNonRendus" cdkDrag (click)="voirDetails(assignment)">
               <a class="project__link focus--box-shadow">
                 <div class="project__wrapper">
                   <div class="project__element project__icon">
@@ -153,17 +153,6 @@
                     <time class="date"
                       >{{assignment.dateDeRendu}}</time
                     >
-                  </div>
-                  <div class="project__element project__setting">
-                    <button
-                      class="setting"
-                      type="button"
-                      (click)="voirDetails(assignment)"
-                    >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                    </svg>
-                    </button>
                   </div>
                 </div>
               </a>
@@ -199,14 +188,16 @@
             </div>
           </header>
 
+          <ul class="project" cdkDropList
+          [cdkDropListData]="assignmentsRendus"
+          (cdkDropListDropped)="rendre($event)">
+
           <section class="droppable-elements">
             <div class="droppable"><span >Déposer ici pour rendre</span></div>
           </section>
 
-          <ul class="project" cdkDropList
-          [cdkDropListData]="assignmentsRendus"
-          (cdkDropListDropped)="rendre($event)">
-            <li class="project__item" *ngFor="let assignment of assignmentsRendus" >
+            <li class="project__item" *ngFor="let assignment of assignmentsRendus" 
+            (click)="voirDetails(assignment)">
               <a class="project__link focus--box-shadow">
                 <div class="project__wrapper">
                   <div class="project__element project__icon">
@@ -233,17 +224,6 @@
                     <time class="date"
                       >{{assignment.dateDeRendu}}</time
                     >
-                  </div>
-                  <div class="project__element project__setting">
-                    <button
-                      class="setting"
-                      type="button"
-                      (click)="voirDetails(assignment)"
-                    >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                    </svg>
-                    </button>
                   </div>
                 </div>
               </a>
@@ -334,16 +314,13 @@
     <aside class="aside">
       <section class="section">
         <div class="profile-main">
-          <button
-            class="profile-main__setting focus--box-shadow"
-            type="button"
-          >
+          <div class="profile-pic">
             <img
-              class="profile-main__photo"
-              src="./../../assets/images/logo.jpg"
-              alt="Profile photo"
+                class="profile-main__photo"
+                src="./../../assets/images/img.jpg"
+                alt="Profile photo"
             />
-          </button>
+          </div>
           <h1 class="profile-main__name">{{utilisateur.name}}</h1>
         </div>
         <ul class="statistics">

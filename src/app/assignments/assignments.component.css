@@ -32,3 +32,28 @@
   font-size: 1.25rem;
   pointer-events: none; /* The element is never the target of pointer events */
 }
+
+button{
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: none;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-main .profile-pic{
+  height: 250px;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.profile-pic img{
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.profile-main__name{
+  margin-top: 10px;
+}

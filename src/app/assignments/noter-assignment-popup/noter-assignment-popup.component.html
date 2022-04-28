@@ -3,10 +3,12 @@
       <div class="content">
         <div class="left-side">
           <div class="details">
-            <div class="status status--in-work"> {{data.assignment.matiere}} </div>
+            <img src="./../../../assets/images/img1.png">
           </div>
           <div class="details">
-            <div class="status status--published">{{data.assignment.nom}}</div>
+            <div class="status status--published">
+              <span class="status status--in-work"> {{data.assignment.matiere}} </span> : 
+              {{data.assignment.nom}}</div>
           </div>
           <div class="details">
             <div class="topic">de <span class="status status--published">{{data.assignment.auteur}}</span></div>
@@ -25,13 +27,9 @@
             <textarea [(ngModel)]="remarques" name="remarques" type="text" placeholder="Remarques"></textarea>
           </div>
           <section>
-            <div class="button">
-              <input type="button" (click)="onNoClick()" value="Annuler" >
-            </div>
-          </section>
-          <section>
-            <div class="button">
-              <input type="button" (click) = "confirm()" value="Confirmer"[disabled]="((!this.note) || (!this.remarques) ) " >
+            <div class="fields">
+              <button type="button" (click)="onNoClick()"> Annuler </button>
+              <button type="button" (click) = "confirm()" [disabled]="((!this.note) || (!this.remarques) ) "> Confirmer </button>
             </div>
           </section>
         </form>
