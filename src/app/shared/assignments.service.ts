@@ -36,7 +36,7 @@ export class AssignmentsService {
 
     console.log(body)
 
-    return this.http.post<Assignment[]>("http://localhost:8010/api/assignments/etat", body)
+    return this.http.post<Assignment[]>(this.url+"/etat", body)
   }
 
   getAssignment(id:string):Observable<Assignment|undefined> {
