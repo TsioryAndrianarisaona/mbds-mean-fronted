@@ -3,9 +3,10 @@
 Le projet ci-après est un projet en guise d'apprentissage du langage [Angular] pour le parcours MBDS.
 Les [cours](http://miageprojet2.unice.fr/Intranet_de_Michel_Buffa/MBDS_Madagascar_2021-2022_Angular_-_NodeJS_-_MongoDB_-_Cloud) sur les technologies MEAN (MongoDB, Express, Angular, Node Js) de [Michel Buffa](https://www.linkedin.com/in/michelbuffa/) ont aidé à la réalisation du projet. 
 Cette partie concerne le front-end déployé sur [Heroku](https://mbds-madagascar-2022-api.herokuapp.com/)
+
 ## Pour commencer
 
-Afin de lancer ce projet dans votre environnement local, vous devriez avoir les environnement requis
+Afin de lancer ce projet dans votre environnement local, vous devriez avoir les environnements requis
 
 ### Pré-requis
 
@@ -19,6 +20,8 @@ Ensuite, basculez-vous dans la branche env/local en lançant la commande  ``git 
 
  
 ## Démarrage
+
+Après avoir démarrer le [backend](https://gitlab.com/m10221/backend) : 
  - Lancez la commande  ``npm install`` pour installer les dépendances
  - Lancez ensuite ``ng serve`` pour démarrer le serveur et naviguez sur `http://localhost:4200/` pour accéder à l'application.  
  - Vous serez ramené sur la page d'authentification de l'application. Pour vous connecter, utilisez: 
