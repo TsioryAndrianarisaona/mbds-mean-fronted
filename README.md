@@ -21,7 +21,7 @@ Afin de lancer ce projet dans votre environnement local, vous devriez avoir les 
  
 ## Démarrage
 
-Après avoir démarrer le [backend](https://gitlab.com/m10221/backend) : 
+Après avoir démarrer le [backend](https://github.com/TsioryAndrianarisaona/mbds-mean-fronted) : 
  - Lancez la commande  ``npm install`` pour installer les dépendances
  - Lancez ensuite ``ng serve`` pour démarrer le serveur et naviguez sur `http://localhost:4200/` pour accéder à l'application.  
  - Vous serez ramené sur la page d'authentification de l'application. Pour vous connecter, utilisez: 
