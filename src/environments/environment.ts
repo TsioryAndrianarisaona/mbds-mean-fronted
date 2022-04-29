@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: "http://localhost:8010/api/"
+  api_url: " https://mbds-madagascar-2022-api.herokuapp.com/api/"
 };
 
 /*
