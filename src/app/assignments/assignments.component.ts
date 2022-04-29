@@ -1,7 +1,7 @@
 
-import { Component, NgZone, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AssignmentsService } from '../shared/assignments.service';
-import { Assignment } from './assignment.model';
+import { Assignment } from './../models/assignment.model';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { NoterAssignmentPopupComponent } from './noter-assignment-popup/noter-assignment-popup.component';
@@ -79,7 +79,6 @@ export class AssignmentsComponent implements OnInit {
   };
 
   constructor(private assignmentsService:AssignmentsService, 
-              private ngZone: NgZone, 
               public dialog: MatDialog, 
               private snackbar: MatSnackBar, 
               private router: Router, 

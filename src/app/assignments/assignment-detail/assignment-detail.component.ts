@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Assignment } from '../assignment.model';
+import { Assignment } from './../../models/assignment.model';
+import { Matiere } from './../../models/matiere.model';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -12,11 +13,7 @@ import { Assignment } from '../assignment.model';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis: Assignment = new Assignment();
-  matiere: any = {
-    name : "",
-    prof : "",
-    image : ""
-  }
+  matiere: Matiere = new Matiere();
 
   assignmentT : Assignment = new Assignment();
 

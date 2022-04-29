@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { catchError, filter, forkJoin, map, Observable, of, pairwise, tap } from 'rxjs';
-import { Assignment } from '../assignments/assignment.model';
+import { Assignment } from './../models/assignment.model';
 import { LoggingService } from './logging.service';
 import { bdInitialAssignments } from './data';
 import {environment} from "../../environments/environment";

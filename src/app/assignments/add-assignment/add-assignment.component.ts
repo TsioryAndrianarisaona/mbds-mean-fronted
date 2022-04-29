@@ -1,10 +1,10 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Matiere } from './../../models/matiere.model';
 
 @Component({
   selector: 'app-add-assignment',
@@ -16,13 +16,8 @@ export class AddAssignmentComponent implements OnInit {
   nomAssignment!: string;
   dateDeRendu!: Date;
   dateLimite!: Date;
-  matieres : any[] = [];
-  matiereChoisi: any = {
-    id : "",
-    name : "",
-    image: "",
-    prof : ""
-  };
+  matieres : Matiere[] = [];
+  matiereChoisi: Matiere = new Matiere();
   note!: string;
   auteur!: string;
 
