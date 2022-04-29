@@ -42,7 +42,3 @@ Après avoir démarrer le [backend](https://github.com/TsioryAndrianarisaona/mbd
 
 - ANDRIANARISAONA Misaina Tsiory Tafita (numéro 2) [@TsioryTafita](https://gitlab.com/TsioryTafita)
 - MIANDRISOA ASIMBOLA Sitraky Ny Avo (numéro 8) [@Sitraka Asimbola](https://gitlab.com/asimbola.sitraka)
-<<<<<<< HEAD
-
-=======
->>>>>>> main
