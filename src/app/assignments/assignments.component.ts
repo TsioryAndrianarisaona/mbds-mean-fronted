@@ -30,7 +30,7 @@ export class AssignmentsComponent implements OnInit {
 
 
   utilisateur: any;
-  matieres!: any[];
+  matieres: any[] = [];
   matiereSearch: string = "";
 
   isAdmin : any = false;
@@ -117,7 +117,7 @@ export class AssignmentsComponent implements OnInit {
   // Récupérer tous les assignments
   getAssignments() {
       // demander les données au service de gestion des assignments...
-      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], this.matieres.map(matiere => matiere.name))
+      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
       .subscribe(reponse => {
         this.assignments = reponse.data.assignments;
         this.page.all = reponse.data.page;
