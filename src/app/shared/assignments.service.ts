@@ -21,7 +21,7 @@ export class AssignmentsService {
 
   }
 
-  getAssignments(page:number, limit:number, etat: any[] = [], matieres: any):Observable<any> {
+  getAssignments(page:number, limit:number, etat: any[] = [], matieres: any[] = []):Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
     // on va envoyer une requête à un Web Service sur le cloud, qui mettra un
     // certain temps à répondre. On va donc préparer le terrain en renvoyant
@@ -31,7 +31,7 @@ export class AssignmentsService {
     const body = {
       page : page,
       etat : etat,
-      matiere : JSON.parse(JSON.stringify(matieres)),
+      matiere : matieres,
     }
     return this.http.post<Assignment[]>(this.url+"/etat", body)
   }
@@ -53,7 +53,7 @@ export class AssignmentsService {
   }
 
   updateAssignment(body:any):Observable<any> {
-    
+
     return this.http.put<Assignment>(this.url, body);
   }
 

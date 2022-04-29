@@ -7,7 +7,7 @@
           </div>
           <div class="details">
             <div class="status status--published">
-              <span class="status status--in-work"> {{data.assignment.matiere}} </span> : 
+              <span class="status status--in-work"> {{data.assignment.matiere}} </span> :
               {{data.assignment.nom}}</div>
           </div>
           <div class="details">
@@ -21,10 +21,10 @@
           <p>Veuillez attribuer les notes et rajouter des remarques</p>
         <form action="#">
           <div class="input-box">
-            <input [(ngModel)]="note" name="note" type="number" min="0" max="20" placeholder="Note">
+            <input [(ngModel)]="note" name="note" type="number" min="0" max="20" placeholder="Note*">
           </div>
           <div class="input-box">
-            <textarea [(ngModel)]="remarques" name="remarques" type="text" placeholder="Remarques"></textarea>
+            <textarea [(ngModel)]="remarques" name="remarques" type="text" placeholder="Remarques*"></textarea>
           </div>
           <section>
             <div class="fields">

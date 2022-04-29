@@ -78,22 +78,23 @@ export class AssignmentsComponent implements OnInit {
     nonRendus : 2
   };
 
-  constructor(private assignmentsService:AssignmentsService, 
-              public dialog: MatDialog, 
-              private snackbar: MatSnackBar, 
-              private router: Router, 
-              private logOut: LogoutService) {}
+  constructor(private assignmentsService:AssignmentsService,
+              public dialog: MatDialog,
+              private snackbar: MatSnackBar,
+              private router: Router,
+              private logOut: LogoutService) {
+    this.getUtilisateur();
+    this.isAdmin = JSON.parse(localStorage.getItem('profil') || 'false');
+    if(this.isAdmin){
+        this.getMatieres();
+      }
+    }
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {
     this.getAssignments();
     this.getAssignmentsNonRendus();
     this.getAssignmentsRendus();
-    this.getUtilisateur();
-    this.isAdmin = JSON.parse(localStorage.getItem('profil') || 'false');
-    if(this.isAdmin){
-      this.getMatieres();
-    }
   }
 
   // Récuperer utilisateur connecté
@@ -102,7 +103,7 @@ export class AssignmentsComponent implements OnInit {
     this.utilisateur = utilisateur;
   }
 
-  // Récuperer matieres liées au prof connecté 
+  // Récuperer matieres liées au prof connecté
   getMatieres(){
     let matieres = JSON.parse(localStorage.getItem('matieres') || '{}');
     this.matieres = matieres;
@@ -116,7 +117,7 @@ export class AssignmentsComponent implements OnInit {
   // Récupérer tous les assignments
   getAssignments() {
       // demander les données au service de gestion des assignments...
-      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], "")
+      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], this.matieres.map(matiere => matiere.name))
       .subscribe(reponse => {
         this.assignments = reponse.data.assignments;
         this.page.all = reponse.data.page;
@@ -132,8 +133,8 @@ export class AssignmentsComponent implements OnInit {
 
   // Récuperer les assignments rendus
   getAssignmentsRendus(){
-    
-    this.assignmentsService.getAssignments(this.page.rendus, this.limit, [20], this.matiereSearch)
+
+    this.assignmentsService.getAssignments(this.page.rendus, this.limit, [20], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
     .subscribe(reponse => {
       this.assignmentsRendus = reponse.data.assignments;
       this.page.rendus = reponse.data.page;
@@ -148,8 +149,8 @@ export class AssignmentsComponent implements OnInit {
 
   // Récuperer les assignments non rendus
   getAssignmentsNonRendus(){
-      
-    this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch)
+
+    this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
     .subscribe(reponse => {
       this.assignmentsNonRendus = reponse.data.assignments;
       this.page.nonRendus = reponse.data.page;
@@ -238,7 +239,7 @@ export class AssignmentsComponent implements OnInit {
   rendre(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } 
+    }
     else {
       var assignment = event.previousContainer.data[event.previousIndex];
       const dialogRef = this.dialog.open(NoterAssignmentPopupComponent, {
@@ -246,17 +247,17 @@ export class AssignmentsComponent implements OnInit {
           assignment: assignment,
         },
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         const body = {
           _id : assignment._id,
           note : result.note,
           remarques : result.remarques
         }
-  
+
         this.assignmentsService.updateAssignment(body).subscribe({
           next: response => {
-          
+
             transferArrayItem(
             event.previousContainer.data,
             event.container.data,
@@ -271,10 +272,10 @@ export class AssignmentsComponent implements OnInit {
             var messageDErreur = err.message;
             this.messageSnackBar(messageDErreur, "OK")
           }
-        })  
-  
+        })
+
       });
-      
+
     }
   }
 
@@ -296,7 +297,7 @@ export class AssignmentsComponent implements OnInit {
       case 20:
         etatFinal = "noté"
         break
-      case 10: 
+      case 10:
         etatFinal = "délivré"
         break
       case -20:
@@ -313,7 +314,7 @@ export class AssignmentsComponent implements OnInit {
       case 20:
         etatFinal = "status status--noted"
         break
-      case 10: 
+      case 10:
         etatFinal = "status status--delivered"
         break
       case -20:

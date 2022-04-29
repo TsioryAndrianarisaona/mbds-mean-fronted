@@ -15,7 +15,7 @@ Afin de lancer ce projet dans votre environnement local, vous devriez avoir les 
 ### Installation
 
  - Pour les tests locals, clonez le projet [frontend](https://gitlab.com/m10221/frontend) 
-Ensuite, basculez-vous dans la branche env/local en lançant la commande  ``git checkout env/local`` ou utilisez des  outils comme SourceTree (ou Smart Git, ....)
+ - Ensuite, basculez-vous dans la branche env/local en lançant la commande  ``git checkout env/local`` ou utilisez des  outils comme SourceTree (ou Smart Git, ....)
 
  
 ## Démarrage
@@ -39,4 +39,7 @@ Ensuite, basculez-vous dans la branche env/local en lançant la commande  ``git 
 
 - ANDRIANARISAONA Misaina Tsiory Tafita (numéro 2) [@TsioryTafita](https://gitlab.com/TsioryTafita)
 - MIANDRISOA ASIMBOLA Sitraky Ny Avo (numéro 8) [@Sitraka Asimbola](https://gitlab.com/asimbola.sitraka)
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
