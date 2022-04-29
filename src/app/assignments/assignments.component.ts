@@ -117,7 +117,7 @@ export class AssignmentsComponent implements OnInit {
   // Récupérer tous les assignments
   getAssignments() {
       // demander les données au service de gestion des assignments...
-      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
+      this.assignmentsService.getAssignments(this.page.all, this.limit, [0, 10, 20], this.matiereSearch !="" ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
       .subscribe(reponse => {
         this.assignments = reponse.data.assignments;
         this.page.all = reponse.data.page;
@@ -134,7 +134,7 @@ export class AssignmentsComponent implements OnInit {
   // Récuperer les assignments rendus
   getAssignmentsRendus(){
 
-    this.assignmentsService.getAssignments(this.page.rendus, this.limit, [20], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
+    this.assignmentsService.getAssignments(this.page.rendus, this.limit, [20], this.matiereSearch!="" ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
     .subscribe(reponse => {
       this.assignmentsRendus = reponse.data.assignments;
       this.page.rendus = reponse.data.page;
@@ -150,7 +150,7 @@ export class AssignmentsComponent implements OnInit {
   // Récuperer les assignments non rendus
   getAssignmentsNonRendus(){
 
-    this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
+    this.assignmentsService.getAssignments(this.page.nonRendus, this.limit,[0, 10], this.matiereSearch!="" ? [this.matiereSearch] : this.matieres.map(matiere => matiere.name))
     .subscribe(reponse => {
       this.assignmentsNonRendus = reponse.data.assignments;
       this.page.nonRendus = reponse.data.page;
