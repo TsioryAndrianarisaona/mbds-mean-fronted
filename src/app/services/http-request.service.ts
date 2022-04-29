@@ -30,6 +30,7 @@ export class HttpRequestService  {
     if(options.headers && (options.headers instanceof HttpHeaders)) {
       requestHeaders = (options.headers as HttpHeaders);
       requestHeaders.append('Access-Control-Allow-Headers', allowHeaders);
+      requestHeaders.append('Access-Control-Allow-Origin', allowHeaders);
       requestHeaders.append('Content-Type', contentType);
       requestHeaders.append('Accept', contentType);
       requestHeaders.append('Authorization', this.authorizationToken);
@@ -37,6 +38,7 @@ export class HttpRequestService  {
     else {
       requestHeaders = new HttpHeaders({
         'Access-Control-Allow-Headers': allowHeaders,
+        'Access-Control-Allow-Origin': allowHeaders,
         'Content-Type': contentType,
         'Accept': contentType,
         'Authorization' : this.authorizationToken
