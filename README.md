@@ -2,7 +2,7 @@
 
 Le projet ci-après est un projet en guise d'apprentissage du langage [Angular](https://angular.io/) pour le parcours MBDS.
 Les [cours](http://miageprojet2.unice.fr/Intranet_de_Michel_Buffa/MBDS_Madagascar_2021-2022_Angular_-_NodeJS_-_MongoDB_-_Cloud) sur les technologies MEAN (MongoDB, Express, Angular, Node Js) de [Michel Buffa](https://www.linkedin.com/in/michelbuffa/) ont aidé à la réalisation du projet. 
-Cette partie concerne le front-end déployé sur [Heroku](https://mbds-madagascar-2022-api.herokuapp.com/)
+Cette partie concerne le front-end déployé sur [Heroku](https://mbds-madagascar-2022-front-end.herokuapp.com/)
 
 ## Pour commencer
 
@@ -15,7 +15,7 @@ Afin de lancer ce projet dans votre environnement local, vous devriez avoir les 
 
 ### Installation
 
- - Pour les tests locals, clonez le projet [frontend](https://gitlab.com/m10221/frontend) 
+ - Pour les tests locals, clonez le projet [frontend](https://github.com/TsioryAndrianarisaona/mbds-mean-fronted) 
  - Ensuite, basculez-vous dans la branche env/local en lançant la commande  ``git checkout env/local`` ou utilisez des  outils comme SourceTree (ou Smart Git, ....)
 
  
