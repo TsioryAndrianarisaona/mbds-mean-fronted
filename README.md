@@ -1,6 +1,6 @@
 # AssignmentApp
 
-Le projet ci-après est un projet en guise d'apprentissage du langage [Angular] pour le parcours MBDS.
+Le projet ci-après est un projet en guise d'apprentissage du langage [Angular](https://angular.io/) pour le parcours MBDS.
 Les [cours](http://miageprojet2.unice.fr/Intranet_de_Michel_Buffa/MBDS_Madagascar_2021-2022_Angular_-_NodeJS_-_MongoDB_-_Cloud) sur les technologies MEAN (MongoDB, Express, Angular, Node Js) de [Michel Buffa](https://www.linkedin.com/in/michelbuffa/) ont aidé à la réalisation du projet. 
 Cette partie concerne le front-end déployé sur [Heroku](https://mbds-madagascar-2022-api.herokuapp.com/)
 
