@@ -25,8 +25,8 @@ Après avoir démarrer le [backend](https://github.com/TsioryAndrianarisaona/mbd
  - Lancez la commande  ``npm install`` pour installer les dépendances
  - Lancez ensuite ``ng serve`` pour démarrer le serveur et naviguez sur `http://localhost:4200/` pour accéder à l'application.  
  - Vous serez ramené sur la page d'authentification de l'application. Pour vous connecter, utilisez: 
-    - en tant que prof : rloncaster3@theatlantic.com / mot de passe : Brenda Janks
-    - en tant qu'élève : wgauchier0@cbslocal.com / Herminia Sawday
+    - en tant que prof : rloncaster3@theatlantic.com / mot de passe : Brenda Janks (il peut y trouver les assignments de ces matières)
+    - en tant qu'élève : wgauchier0@cbslocal.com / Herminia Sawday (il peut y trouver les assignments qui lui sont rattachés)
 
 
 ## Développé avec
